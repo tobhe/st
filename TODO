@@ -1,0 +1,3 @@
+  - total rewrite of X code (pixmap, mouse, copy-paste, ...)
+  - write a clean terminfo entry
+  - handle utf8 
