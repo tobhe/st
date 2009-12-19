@@ -1,0 +1,5 @@
+stterm (0.0~20091219+hg68-1) unstable; urgency=low
+
+  * Initial release (Closes: #560596)
+
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 19 Dec 2009 22:45:28 +0200

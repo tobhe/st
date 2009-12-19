@@ -1,0 +1,3 @@
+version=3
+opts="dversionmangle=s//0.0/" \
+  http://st.suckless.org/ .*tip(.*)\.tar\.gz
