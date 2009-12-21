@@ -13,7 +13,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: an extremely simple terminal for windowed system
  Stterm is a bare bones terminal emulator developed with a focus on
- simplicity and clarity as the primary goals. It is etremely
- lightweight consuming only approximately 1+25 KiB memory
- (reserved+virtual). The suckless software projects philosophy is
- about keeping things simple, minimal and usable.
+ simplicity and clarity as the primary goals. It is very lightweight
+ consuming only approximately (1.3+25 reserved+virtual) KiB memory.
+ The suckless software projects philosophy is about keeping things
+ simple, minimal and usable.
