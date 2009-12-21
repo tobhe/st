@@ -13,6 +13,10 @@ man:
 
 install: build man
 	# target: install
+	dh_testdir
+	dh_testroot
+	dh_prep
+
 	$(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
 
 	# Rename binary to reflect "term"
