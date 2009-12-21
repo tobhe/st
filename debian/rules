@@ -1,56 +1,36 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
 PACKAGE = stterm
 ORIGBIN = st
 BIN	= $(PACKAGE)
-MANSECT	= 1
 
 include debian/debian-vars.mk
 
 man:
-	# target: man -- convert *.pod to manual page
-	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) \
-	MANSECT=$(MANSECT) makeman
+	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 
 install: build man
 	# target: install
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-	dh_installman
-
 	$(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
+
+	# Rename binary to reflect "term"
 	mv $(BINDIR)/$(ORIGBIN) $(BINDIR)/$(BIN)
 
-binary-arch: install
-	# target: binary-arch -- Build architecture-dependent files
+binary: install
+	# target: binary (binary-arch) -- Build architecture-dependent files
 	dh_testdir
 	dh_testroot
+	dh_installman
 	dh_installchangelogs
 	dh_installdocs
-#	dh_installexamples
-#	dh_install
-#	dh_installmenu
-#	dh_installdebconf
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
-#	dh_installinfo
+	dh_installexamples
 	dh_link
 	dh_strip
 	dh_compress
 	dh_fixperms
-#	dh_perl
-#	dh_python
-#	dh_makeshlibs
+	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
@@ -60,9 +40,6 @@ binary-arch: install
 %:
 	dh "$@"
 
-binary: binary-arch
-
-.PHONY: build install man
-.PHONY: binary-indep binary-arch binary
+.PHONY: man install binary
 
 # End of file
