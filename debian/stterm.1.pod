@@ -70,7 +70,9 @@ None.
 
 =head1 BUGS
 
-For features not yet supported, see /usr/share/doc/stterm/TODO
+The mouse copy/paste in this extremely small terminal is not yet
+implemented. For list of features not yet supported, see
+/usr/share/doc/stterm/TODO
 
 =head1 SEE ALSO
 
