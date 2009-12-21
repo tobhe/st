@@ -2,7 +2,7 @@ Source: stterm
 Section: x11
 Priority: optional
 Maintainer: Jari Aalto <jari.aalto@cante.net>
-Build-Depends: debhelper (>= 7)
+Build-Depends: debhelper (>= 7.1)
 Standards-Version: 3.8.3
 Vcs-Browser: http://git.debian.org/?p=collab-maint/stterm.git
 Vcs-Git: git://git.debian.org/git/collab-maint/stterm.git
