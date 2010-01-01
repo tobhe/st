@@ -14,7 +14,6 @@ man:
 install: build man
 	# target: install
 	dh_testdir
-	dh_testroot
 	dh_prep
 
 	$(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
@@ -22,8 +21,8 @@ install: build man
 	# Rename binary to reflect "term"
 	mv $(BINDIR)/$(ORIGBIN) $(BINDIR)/$(BIN)
 
-binary: install
-	# target: binary (binary-arch) -- Build architecture-dependent files
+binary-arch: install
+	# target: binary-arch -- Build architecture-dependent files
 	dh_testdir
 	dh_testroot
 	dh_installman
@@ -41,9 +40,11 @@ binary: install
 	dh_md5sums
 	dh_builddeb
 
-%:
-	dh "$@"
+binary: binary-arch
 
-.PHONY: man install binary
+%:
+	dh $@
+
+.PHONY: man install binary binary-arch
 
 # End of file
