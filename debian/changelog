@@ -3,7 +3,7 @@ stterm (0.0~20091219+hg68-2) unstable; urgency=low
   * debian/rules:
     - (binary-arch): Debian explicit rules for 'debuild -B'.
 
- -- Jari Aalto <jari.aalto@cante.net>  Fri, 01 Jan 2010 18:17:15 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Sun, 14 Feb 2010 00:56:47 +0200
 
 stterm (0.0~20091219+hg68-1) unstable; urgency=low
 
