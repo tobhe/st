@@ -1,6 +1,7 @@
 This work was packaged for Debian by:
 
-    Jari Aalto <jari.aalto@cante.net> on 2009-12-11 02:39:01+02 Fri.
+    Jari Aalto <jari.aalto@cante.net>
+    on 2009-12-11 02:39:01+02 Fri.
 
 It was downloaded from:
 
@@ -19,7 +20,7 @@ Copyright:
 
 License:
 
-    [MIT/X Consortium license]
+    From file: LICENSE (MIT/X Consortium license)
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -44,10 +45,10 @@ License:
     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-The Debian packaging is:
+The Debian packaging is licensed under the GPL version 2, or (at your
+options), any later version, and is:
 
     Copyright (C) 2009-2010 Jari Aalto <jari.aalto@cante.net>
 
-and is licensed under the GPL version 2, or (at your options), any
-later version. On Debian systems, the complete text of the GNU General
+On Debian systems, the complete text of the GNU General
 Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
