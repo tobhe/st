@@ -7,13 +7,13 @@ stterm (0.0~20091219+hg68-2) unstable; urgency=low
   * debian/postinst
     - New file.
   * debian/rules
-    - Move to full dh(1). Install terminfo entry with tic(1).
+    - Move to full dh(1).
   * debian/stterm.install
     - Delete. Handled in debian/rules.
   * debian/upstream.changelog
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 29 May 2010 08:59:21 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 29 May 2010 09:13:25 +0300
 
 stterm (0.0~20091219+hg68-1) unstable; urgency=low
 
