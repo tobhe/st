@@ -9,6 +9,7 @@ CHANGELOG	= debian/upstream.changelog
 BIN		= $(PACKAGE)
 PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
 BINDIR		= $(PKGDIR)/usr/bin
+SHAREROOTDIR	= $(PKGDIR)/usr/share
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 
