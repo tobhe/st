@@ -2,48 +2,34 @@
 
 #export DH_VERBOSE=1
 
-PACKAGE = stterm
-ORIGBIN = st
-BIN	= $(PACKAGE)
+PACKAGE		= stterm
+ORIGBIN		= st
+
+BIN		= $(PACKAGE)
+PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
+BINDIR		= $(PKGDIR)/usr/bin
+DOCROOTDIR	= $(SHAREROOTDIR)/doc
+PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 
 include debian/debian-vars.mk
 
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 
-install: build man
-	# target: install
-	dh_testdir
-	dh_prep
-
-	$(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
+override_dh_auto_install:
+	# Upstream no good. Calls tic(1) which writes to $HOME
+	# $(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
 
 	# Rename binary to reflect "term"
-	mv $(BINDIR)/$(ORIGBIN) $(BINDIR)/$(BIN)
+	install -m 755 -D $(ORIGBIN) $(BINDIR)/$(BIN)
 
-binary-arch: install
-	# target: binary-arch -- Build architecture-dependent files
-	dh_testdir
-	dh_testroot
-	dh_installman
-	dh_installchangelogs
-	dh_installdocs
-	dh_installexamples
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-arch
+	install -m 755 -D \
+		st.info$(ORIGBIN) \
+		$(PKGDOCDIR)/examples/$(PACKAGE).terminfo
 
 %:
 	dh $@
 
-.PHONY: man install binary binary-arch
+.PHONY: man
 
 # End of file
