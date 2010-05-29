@@ -4,12 +4,12 @@ set -e
 
 PACKAGE		= stterm
 DOCROOTDIR	= /usr/shared/doc
-PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
+PKGDOCDIR	= $DOCROOTDIR/$PACKAGE
 
 terminfo=/usr/share/terminfo
 
 if [ -d $terminfo ]; then
-   TERMINFO=$terminfo  tic $(PKGDOCDIR)/examples/$(PACKAGE).terminfo
+   TERMINFO=$terminfo  tic $PKGDOCDIR/examples/$PACKAGE.terminfo
 fi
 
 #DEBHELPER#
