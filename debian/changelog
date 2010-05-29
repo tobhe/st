@@ -1,7 +1,8 @@
 stterm (0.0~20091219+hg68-2) unstable; urgency=low
 
   * Bug fix release
-    - Prevent tic(1) from writing $HOME (FTBFS; Closes: #583627).
+    - Prevent tic(1) from writing to $HOME and handle terminfo
+      file install in postinst script (FTBFS; Closes: #583627).
   * debian/patches
     - (20): New. Change terminal name from st to stterm.
   * debian/postinst
@@ -13,7 +14,7 @@ stterm (0.0~20091219+hg68-2) unstable; urgency=low
   * debian/upstream.changelog
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 29 May 2010 09:13:25 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 29 May 2010 09:14:51 +0300
 
 stterm (0.0~20091219+hg68-1) unstable; urgency=low
 
