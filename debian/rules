@@ -4,6 +4,7 @@
 
 PACKAGE		= stterm
 ORIGBIN		= st
+CHANGELOG	= debian/upstream.changelog
 
 BIN		= $(PACKAGE)
 PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
@@ -11,20 +12,29 @@ BINDIR		= $(PKGDIR)/usr/bin
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 
-include debian/debian-vars.mk
+# Run manually
+get-changelog:
+	# hg clone http://hg.suckless.org/st
+	# hg log | head -n 100 > $(CHANGELOG)
 
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 
-override_dh_auto_install:
-	# Upstream no good. Calls tic(1) which writes to $HOME
+override_dh_installinfo:
+	# Disable; the *.info is not a info(1) but a terminfo file
+
+override_dh_installchangelogs:
+	dh_installchangelogs $(CHANGELOG)
+
+override_dh_auto_install: man
+	# Upstream no good. Calls tic(1) which writes to $$HOME
 	# $(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
 
 	# Rename binary to reflect "term"
 	install -m 755 -D $(ORIGBIN) $(BINDIR)/$(BIN)
 
-	install -m 755 -D \
-		st.info$(ORIGBIN) \
+	install -m 644 -D \
+		$(ORIGBIN).info \
 		$(PKGDOCDIR)/examples/$(PACKAGE).terminfo
 
 %:
