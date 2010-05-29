@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+PACKAGE		= stterm
+DOCROOTDIR	= /usr/shared/doc
+PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
+
+teminfo=/usr/share/terminfo
+
+if [ -d $teminfo ]; then
+   tic $(PKGDOCDIR)/examples/$(PACKAGE).terminfo
+fi
+
+#DEBHELPER#
