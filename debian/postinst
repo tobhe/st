@@ -6,10 +6,10 @@ PACKAGE		= stterm
 DOCROOTDIR	= /usr/shared/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 
-teminfo=/usr/share/terminfo
+terminfo=/usr/share/terminfo
 
-if [ -d $teminfo ]; then
-   tic $(PKGDOCDIR)/examples/$(PACKAGE).terminfo
+if [ -d $terminfo ]; then
+   TERMINFO=$terminfo  tic $(PKGDOCDIR)/examples/$(PACKAGE).terminfo
 fi
 
 #DEBHELPER#
