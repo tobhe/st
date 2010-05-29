@@ -3,7 +3,7 @@
 set -e
 
 PACKAGE=stterm
-DOCROOTDIR=/usr/shared/doc
+DOCROOTDIR=/usr/share/doc
 PKGDOCDIR=$DOCROOTDIR/$PACKAGE
 
 terminfo=/usr/share/terminfo
