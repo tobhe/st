@@ -2,3 +2,4 @@
 10-st.c-option-version=11-fix-compile.patch
 10-st.c-option-version=11-fix-compile=12-version.patch
 10-st.c-option-version=11-fix-compile=12-version=13-errkey.patch
+20-st.info.patch
