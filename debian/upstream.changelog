@@ -1,46 +1,100 @@
-hg log [OPTION]... [FILE]
+changeset:   68:52910cda2080
+tag:         tip
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Wed Oct 28 14:34:22 2009 +0100
+summary:     drawing is faster but the bold attr is not supported anymore.
 
-aliases: history
+changeset:   67:409a2f676ac1
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Mon Sep 07 21:19:29 2009 +0200
+summary:     Fixed possible segfault by reverting to the key struct (again).
 
-show revision history of entire repository or files
+changeset:   66:4801aa121163
+user:        Anselm R Garbe <garbeam@gmail.com>
+date:        Fri Jul 10 16:27:14 2009 +0100
+summary:     only compile tdump if DEBUG flag is set
 
-    Print the revision history of the specified files or the entire project.
+changeset:   65:59c763efd3a0
+user:        Anselm R Garbe <garbeam@gmail.com>
+date:        Fri Jul 10 16:23:11 2009 +0100
+summary:     we definately need pixmaps for the drawing, currently drawing into the window is painfully slow! much more slower than drawing into a pixmap and mapping that when finished -- several optimisations
 
-    File history is shown without following rename or copy history of files. Use -f/--follow with a filename to follow history across renames and
-    copies. --follow without a filename will only show ancestors or descendants of the starting revision. --follow-first only follows the first
-    parent of merge revisions.
+changeset:   64:5d5e8590f224
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Sun Jun 21 19:52:06 2009 +0200
+summary:     reverted back to the old Key struct.
 
-    If no revision range is specified, the default is tip:0 unless --follow is set, in which case the working directory parent is used as the
-    starting revision.
+changeset:   63:d045f7fc239f
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Sun Jun 21 19:37:12 2009 +0200
+summary:     updated "key" to a lookup table.
 
-    See 'hg help dates' for a list of formats valid for -d/--date.
+changeset:   62:a8c13209607a
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Wed Jun 17 20:44:36 2009 +0200
+summary:     removed old unused cursor() proto.
 
-    By default this command prints revision number and changeset id, tags, non-trivial parents, user, date and time, and a summary for each commit.
-    When the -v/--verbose switch is used, the list of changed files and full commit message are shown.
+changeset:   61:c0868bed7da8
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Wed Jun 17 02:58:40 2009 +0200
+summary:     fixed the scrolling bug and cleaned some stuff.
 
-    NOTE: log -p/--patch may generate unexpected diff output for merge changesets, as it will only compare the merge changeset against its first
-    parent. Also, only files different from BOTH parents will appear in files:.
+changeset:   60:12caf70674d5
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue Jun 16 12:34:10 2009 +0200
+summary:     dump escseq if not handled.
 
-options:
+changeset:   59:75b74ec2265c
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue Jun 16 02:41:45 2009 +0200
+summary:     clean up.
 
- -f --follow        follow changeset history, or file history across copies and renames
-    --follow-first  only follow the first parent of merge changesets
- -d --date          show revisions matching date spec
- -C --copies        show copied files
- -k --keyword       do case-insensitive search for a keyword
- -r --rev           show the specified revision or range
-    --removed       include revisions where files were removed
- -m --only-merges   show only merges
- -u --user          revisions committed by user
- -b --only-branch   show only changesets within the given named branch
- -P --prune         do not display revision or any of its ancestors
- -p --patch         show patch
- -g --git           use git extended diff format
- -l --limit         limit number of changes displayed
- -M --no-merges     do not show merges
-    --style         display using template map file
-    --template      display with template
- -I --include       include names matching the given patterns
- -X --exclude       exclude names matching the given patterns
+changeset:   58:3a6fba60b55c
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue Jun 16 02:33:38 2009 +0200
+summary:     added/removed files, updated Makefile.
 
-use "hg -v help log" to show global options
+changeset:   57:8984613421d0
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue Jun 16 02:23:46 2009 +0200
+summary:     made kpress() more flexible, removed st.h, added config.h.
+
+changeset:   56:8e490d9c8055
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Thu Jun 11 17:03:25 2009 +0200
+summary:     updated TODO.
+
+changeset:   55:64388880e506
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Thu Jun 11 16:41:14 2009 +0200
+summary:     added sigchld handler, cleaned error checking.
+
+changeset:   54:f037c2658ff1
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Thu May 28 01:33:01 2009 +0200
+summary:     cleaned up (removed space indentation). select/event bug fixed.
+
+changeset:   53:6516c46134f0
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue May 26 02:21:02 2009 +0200
+summary:     fixed a memory leak & segfault in tresize.
+
+changeset:   52:aeb4d8936f8a
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Fri May 15 00:40:47 2009 +0200
+summary:     updated TODO.
+
+changeset:   51:f776debeb127
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Fri May 15 00:39:51 2009 +0200
+summary:     tab moves the cursor instead of inserting spaces.
+
+changeset:   50:cb345f153662
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Thu May 14 01:03:17 2009 +0200
+summary:     handle tabulation (still not perfect)
+
+changeset:   49:7409057d7df7
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Thu May 14 00:28:10 2009 +0200
+summary:     removed truecolor stuff
