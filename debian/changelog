@@ -1,3 +1,10 @@
+stterm (0.0~20091219+hg68-3) unstable; urgency=low
+
+  * debian/upstream.changelog
+    - Update content (Closes: #583920).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 02 Jun 2010 08:34:54 +0300
+
 stterm (0.0~20091219+hg68-2) unstable; urgency=low
 
   * Bug fix release
