@@ -1,3 +1,10 @@
+stterm (0.0~20091219+hg68-4) unstable; urgency=low
+
+  * debian/control
+    - (Description): Correct units to MiB (Closes: #584649).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 05 Jun 2010 13:27:55 +0300
+
 stterm (0.0~20091219+hg68-3) unstable; urgency=low
 
   * debian/upstream.changelog
