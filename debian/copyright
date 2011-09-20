@@ -1,8 +1,7 @@
 Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
 X-Format: http://dep.debian.net/deps/dep5
 Upstream-Name: stterm
-Upstream-Contact: Anselm R Garbe <anselm@garbe.us>, Aurélien Aptell <aurelien.aptel@gmail.com>
- Joerg Wunsch <joerg_wunsch@uriah.heep.sax.de>, <j@uriah.heep.sax.de>
+Upstream-Contact: Aurélien Aptell <aurelien.aptel@gmail.com>
 Source: http://st.suckless.org
 X-Vcs-Hg: http://hg.suckless.org/st
 X-Comment:
@@ -10,8 +9,8 @@ X-Comment:
 
 Files: *
 Copyright:
+ 2009-2011 Aurélien Aptell
  2009 Anselm R Garbe
- 2009 Aurélien Aptell
 License: MIT
 
 Files: debian/*
