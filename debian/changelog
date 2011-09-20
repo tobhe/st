@@ -9,11 +9,14 @@ stterm (0.0~20110920+hg212-1) unstable; urgency=low
   * debian/copyright
     - Update to DEP 5.
   * debian/patches
-    - (10): Delete: options -V, --version accepted upstream.
+    - (10): Delete. Accepted upstream: options -V, --version.
+    - (12): New. Replaced by patches 11-fix-compile and 12-version.
+    - (13): Delete. Accepted upstream: do not display Ctrl, Alt key
+      messages.
   * debian/rules
     - (get-changelog): update instructions.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:38:39 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:48:46 +0300
 
 stterm (0.0~20091219+hg68-4) unstable; urgency=low
 
