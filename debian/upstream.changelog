@@ -1,100 +1,100 @@
-changeset:   68:52910cda2080
+changeset:   212:8b81c6b5ad66
 tag:         tip
+parent:      211:65f34fa802fd
+parent:      208:1c8e6796c6fe
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Wed Oct 28 14:34:22 2009 +0100
-summary:     drawing is faster but the bold attr is not supported anymore.
+date:        Fri Sep 16 18:24:13 2011 +0200
+summary:     working on old repo, merging recent changesets.
 
-changeset:   67:409a2f676ac1
+changeset:   211:65f34fa802fd
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Mon Sep 07 21:19:29 2009 +0200
-summary:     Fixed possible segfault by reverting to the key struct (again).
+date:        Fri Sep 16 18:21:48 2011 +0200
+summary:     move xembedatom in XWindow struct, add link to xembed specs.
 
-changeset:   66:4801aa121163
-user:        Anselm R Garbe <garbeam@gmail.com>
-date:        Fri Jul 10 16:27:14 2009 +0100
-summary:     only compile tdump if DEBUG flag is set
-
-changeset:   65:59c763efd3a0
-user:        Anselm R Garbe <garbeam@gmail.com>
-date:        Fri Jul 10 16:23:11 2009 +0100
-summary:     we definately need pixmaps for the drawing, currently drawing into the window is painfully slow! much more slower than drawing into a pixmap and mapping that when finished -- several optimisations
-
-changeset:   64:5d5e8590f224
+changeset:   210:5079a55df883
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Sun Jun 21 19:52:06 2009 +0200
-summary:     reverted back to the old Key struct.
+date:        Fri Sep 16 18:03:44 2011 +0200
+summary:     tweak focus to support XEMBED client message and remove focus on EnterNotify. (thx Adrian)
 
-changeset:   63:d045f7fc239f
+changeset:   209:437d613b56eb
+parent:      206:e64c97268f1a
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Sun Jun 21 19:37:12 2009 +0200
-summary:     updated "key" to a lookup table.
+date:        Fri Sep 16 17:57:56 2011 +0200
+summary:     remove dup of default window size.
 
-changeset:   62:a8c13209607a
+changeset:   208:1c8e6796c6fe
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Wed Jun 17 20:44:36 2009 +0200
-summary:     removed old unused cursor() proto.
+date:        Sun Aug 14 17:15:19 2011 +0200
+summary:     change "op" cap in terminfo entry to xterm/rxvt value.
 
-changeset:   61:c0868bed7da8
+changeset:   207:7573497e29f7
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Wed Jun 17 02:58:40 2009 +0200
-summary:     fixed the scrolling bug and cleaned some stuff.
+date:        Sun Aug 14 17:13:59 2011 +0200
+summary:     fix custom key handling.
 
-changeset:   60:12caf70674d5
+changeset:   206:e64c97268f1a
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Tue Jun 16 12:34:10 2009 +0200
-summary:     dump escseq if not handled.
+date:        Thu Jun 09 18:25:56 2011 +0200
+summary:     fix focus state when embed in another window.
 
-changeset:   59:75b74ec2265c
+changeset:   205:76d7ec4d159e
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Tue Jun 16 02:41:45 2009 +0200
-summary:     clean up.
+date:        Thu Jun 09 14:27:07 2011 +0200
+summary:     fix segfault with mouse selection. (thx anonymous)
 
-changeset:   58:3a6fba60b55c
+changeset:   204:6c311c25323e
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Tue Jun 16 02:33:38 2009 +0200
-summary:     added/removed files, updated Makefile.
+date:        Wed Jun 08 21:35:58 2011 +0200
+summary:     add -w option to embed st. (thx nodus cursorius)
 
-changeset:   57:8984613421d0
+changeset:   203:1ab99c17a30c
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Tue Jun 16 02:23:46 2009 +0200
-summary:     made kpress() more flexible, removed st.h, added config.h.
+date:        Wed Jun 08 20:26:00 2011 +0200
+summary:     applied parts of "anonymous" cleanup patch.
 
-changeset:   56:8e490d9c8055
+changeset:   202:0f21f57006c9
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Thu Jun 11 17:03:25 2009 +0200
-summary:     updated TODO.
+date:        Wed Jun 08 20:22:38 2011 +0200
+summary:     add altscreen escseq alias & caps to terminfo entry. (thx Bert Münnich)
 
-changeset:   55:64388880e506
+changeset:   201:8a374ea5d4ec
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Thu Jun 11 16:41:14 2009 +0200
-summary:     added sigchld handler, cleaned error checking.
+date:        Wed Jun 08 19:32:10 2011 +0200
+summary:     disable mouse highlight when mouse report enabled. (thx Bert Münnich)
 
-changeset:   54:f037c2658ff1
+changeset:   200:44f257fdaca0
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Thu May 28 01:33:01 2009 +0200
-summary:     cleaned up (removed space indentation). select/event bug fixed.
+date:        Wed Jun 08 12:40:35 2011 +0200
+summary:     reverse video mode. (thx Bert Münnich)
 
-changeset:   53:6516c46134f0
+changeset:   199:f52faaeeb124
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Tue May 26 02:21:02 2009 +0200
-summary:     fixed a memory leak & segfault in tresize.
+date:        Wed Jun 01 19:57:48 2011 +0200
+summary:     add status bar (window title) to terminfo. (thx Rafa Gallego)
 
-changeset:   52:aeb4d8936f8a
+changeset:   198:2effc50d2c4f
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Fri May 15 00:40:47 2009 +0200
-summary:     updated TODO.
+date:        Sun May 22 16:57:27 2011 +0200
+summary:     set title before mapping window (thx Kamil Cholewiński).
 
-changeset:   51:f776debeb127
+changeset:   197:1eb3e1b6a8d0
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Fri May 15 00:39:51 2009 +0200
-summary:     tab moves the cursor instead of inserting spaces.
+date:        Sat May 14 17:47:37 2011 +0200
+summary:     applied parts of Connor Lane Smith's cleanup patch.
 
-changeset:   50:cb345f153662
+changeset:   196:33806ff4897d
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Thu May 14 01:03:17 2009 +0200
-summary:     handle tabulation (still not perfect)
+date:        Tue May 10 22:55:35 2011 +0200
+summary:     macro cleanup.
 
-changeset:   49:7409057d7df7
+changeset:   195:02225aeed773
 user:        Aurélien Aptel <aurelien.aptel@gmail.com>
-date:        Thu May 14 00:28:10 2009 +0200
-summary:     removed truecolor stuff
+date:        Tue May 10 22:54:30 2011 +0200
+summary:     add mouse report escape to terminfo entry.
+
+changeset:   194:d387d334f416
+user:        Aurélien Aptel <aurelien.aptel@gmail.com>
+date:        Tue May 10 22:22:44 2011 +0200
+summary:     support for x11 xterm mouse reporting
+
+changeset:   193:53e45b4e510d
