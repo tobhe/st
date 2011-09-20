@@ -1,6 +1,8 @@
 stterm (0.0~20110920+hg212-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/clean
+    - Add config.h.
   * debian/compat
     - Update to 8.
   * debian/control
@@ -14,11 +16,11 @@ stterm (0.0~20110920+hg212-1) unstable; urgency=low
     - (12): New. Replaced by patches 11-fix-compile and 12-version.
     - (13): Delete. Accepted upstream: do not display Ctrl, Alt key
       messages.
-    - (20): refresh.
+    - (20): Refresh.
   * debian/rules
     - (get-changelog): update instructions.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:53:43 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:56:21 +0300
 
 stterm (0.0~20091219+hg68-4) unstable; urgency=low
 
