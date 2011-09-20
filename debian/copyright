@@ -10,7 +10,7 @@ X-Comment:
 Files: *
 Copyright:
  2009-2011 Aurélien Aptell
- 2009 Anselm R Garbe
+ 2009 Anselm R Garbe <anselm@garbe.us>
 License: MIT
 
 Files: debian/*
