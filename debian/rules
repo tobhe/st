@@ -13,10 +13,10 @@ SHAREROOTDIR	= $(PKGDIR)/usr/share
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 
-# Run manually
 get-changelog:
-	# hg clone http://hg.suckless.org/st
-	# hg log | head -n 100 > $(CHANGELOG)
+	# hg cannot list logs at remote URL, so run these manually
+	@echo "hg clone http://hg.suckless.org/st"
+	@echo "hg log | head -n 100 > $$(pwd)/$(CHANGELOG)"
 
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
