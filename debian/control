@@ -11,7 +11,7 @@ Homepage: http://st.suckless.org
 Package: stterm
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: an extremely simple terminal for windowed system
+Description: bare bones and simple terminal for windowed system
  Stterm is a bare bones terminal emulator developed with a focus on
  simplicity and clarity as the primary goals. It is very lightweight
  consuming only approximately (2+25 reserved+virtual) MiB memory.
