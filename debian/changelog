@@ -5,6 +5,7 @@ stterm (0.0~20110920+hg212-1) unstable; urgency=low
     - Update to 8.
   * debian/control
     - (Build-Depends): debhelper 8.
+    - (Description): update firs line.
     - (Standards-Version): Update to 3.9.2.
   * debian/copyright
     - Update to DEP 5.
@@ -17,7 +18,7 @@ stterm (0.0~20110920+hg212-1) unstable; urgency=low
   * debian/rules
     - (get-changelog): update instructions.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:52:27 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 20 Sep 2011 12:53:43 +0300
 
 stterm (0.0~20091219+hg68-4) unstable; urgency=low
 
