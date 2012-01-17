@@ -1,3 +1,10 @@
+stterm (0.0~20110920+hg212-2) unstable; urgency=low
+
+  * debian/patches
+    - (20): Correct terminal id from "st" to "stterm" (Closes: #656114).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 17 Jan 2012 20:27:48 +0200
+
 stterm (0.0~20110920+hg212-1) unstable; urgency=low
 
   * New upstream release.
