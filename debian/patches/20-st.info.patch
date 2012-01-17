@@ -11,8 +11,6 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  st.info |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/st.info b/st.info
-index ea67039..d24ae6d 100644
 --- a/st.info
 +++ b/st.info
 @@ -1,6 +1,6 @@
@@ -23,6 +21,14 @@ index ea67039..d24ae6d 100644
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  #	bce,
--- 
-1.7.5.4
-
+@@ -102,8 +102,8 @@
+ 	ul,
+ 	xenl,
+ 
+-st-256color| simpleterm with 256 colors,
+-	use=st,
++stterm-256color| simpleterm with 256 colors,
++	use=stterm,
+ 	colors#256,
+ 	pairs#32767,
+ #	Nicked from xterm-256color
