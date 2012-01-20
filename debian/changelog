@@ -1,3 +1,10 @@
+stterm (0.0~20110920+hg212-3) unstable; urgency=low
+
+  * debian/postinst
+    - Delete files created in postinst by tic(1) (Closes: #656557).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Fri, 20 Jan 2012 15:36:11 +0200
+
 stterm (0.0~20110920+hg212-2) unstable; urgency=low
 
   * debian/patches
