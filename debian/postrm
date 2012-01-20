@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+PACKAGE=stterm
+terminfo=/usr/share/terminfo
+
+if [ -d $terminfo ]; then
+   # in postinst, remove tic(1) created files
+   rm -f $terminfo/stterm*
+fi
+
+#DEBHELPER#
