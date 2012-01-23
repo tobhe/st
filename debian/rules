@@ -12,6 +12,7 @@ BINDIR		= $(PKGDIR)/usr/bin
 SHAREROOTDIR	= $(PKGDIR)/usr/share
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
+TERMINFO	= $(PKGDIR)/usr/share/terminfo
 
 get-changelog:
 	# hg cannot list logs at remote URL, so run these manually
@@ -21,14 +22,18 @@ get-changelog:
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 
+terminfo:
+	install -m 755 -d $(TERMINFO)/s
+	TERMINFO=$(TERMINFO) tic st.info
+
 override_dh_installinfo:
 	# Disable; the *.info is not a info(1) but a terminfo file
 
 override_dh_installchangelogs:
 	dh_installchangelogs $(CHANGELOG)
 
-override_dh_auto_install: man
-	# Upstream no good. Calls tic(1) which writes to $$HOME
+override_dh_auto_install: man terminfo
+	# Upstream no good. Calls tic(1) which writes to $HOME
 	# $(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
 
 	# Rename binary to reflect "term"
@@ -41,6 +46,6 @@ override_dh_auto_install: man
 %:
 	dh $@
 
-.PHONY: man
+.PHONY: man terminfo
 
 # End of file
