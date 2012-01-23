@@ -1,3 +1,11 @@
+stterm (0.0~20110920+hg212-4) unstable; urgency=low
+
+  * debian/rules
+    - (terminfo): New. Run tic(1) at install time (Closes: #656557).
+  * debian/{postinst,postrm}: Delete. Tic is now called in debian/rules.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Mon, 23 Jan 2012 21:09:31 +0200
+
 stterm (0.0~20110920+hg212-3) unstable; urgency=low
 
   * debian/postinst
