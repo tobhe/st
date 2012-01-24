@@ -4,6 +4,7 @@ Upstream-Name: stterm
 Upstream-Contact: Aurélien Aptell <aurelien.aptel@gmail.com>
 Source: http://st.suckless.org
 X-Vcs-Hg: http://hg.suckless.org/st
+X-Upstream-Issues: dev+subscribe@suckless.org
 X-Comment:
  Dowloads only available from VCS tree.
 
