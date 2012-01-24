@@ -6,6 +6,7 @@
 #include <limits.h>
 #include <locale.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,17 +14,16 @@
 #include <sys/ioctl.h>
 #include <sys/select.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
 #include <unistd.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>
 #include <X11/keysym.h>
-
-#include <sys/time.h>
-#include <time.h>
 
 #if   defined(__linux)
  #include <pty.h>
@@ -34,7 +34,7 @@
 #endif
 
 #define USAGE \
-	"st-" VERSION ", (c) 2010-2011 st engineers\n" \
+	"st " VERSION " (c) 2010-2011 st engineers\n" \
 	"usage: st [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
 
 /* XEMBED messages */
@@ -49,6 +49,9 @@
 #define UTF_SIZ       4
 #define XK_NO_MOD     UINT_MAX
 #define XK_ANY_MOD    0
+
+#define SELECT_TIMEOUT (20*1000) /* 20 ms */
+#define DRAW_TIMEOUT  (20*1000) /* 20 ms */
 
 #define SERRNO strerror(errno)
 #define MIN(a, b)  ((a) < (b) ? (a) : (b))
@@ -76,6 +79,10 @@ enum { WIN_VISIBLE=1, WIN_REDRAW=2, WIN_FOCUSED=4 };
 
 #undef B0
 enum { B0=1, B1=2, B2=4, B3=8, B4=16, B5=32, B6=64, B7=128 };
+
+typedef unsigned char uchar;
+typedef unsigned int uint;
+typedef unsigned long ulong;
 
 typedef struct {
 	char c[UTF_SIZ];     /* character code */
@@ -111,6 +118,7 @@ typedef struct {
 	int col;	/* nb col */
 	Line* line;	/* screen */
 	Line* alt;	/* alternate screen */
+	bool* dirty; /* dirtyness of lines */
 	TCursor c;	/* cursor */
 	int top;	/* top    scroll limit */
 	int bot;	/* bottom scroll limit */
@@ -137,17 +145,18 @@ typedef struct {
 	int ch; /* char height */
 	int cw; /* char width  */
 	char state; /* focus, redraw, visible */
+	struct timeval lastdraw;
 } XWindow;
 
 typedef struct {
 	KeySym k;
-	unsigned int mask;
+	uint mask;
 	char s[ESC_BUF_SIZ];
 } Key;
 
 /* Drawing Context */
 typedef struct {
-	unsigned long col[256];
+	ulong col[256];
 	GC gc;
 	struct {
 		int ascent;
@@ -178,6 +187,7 @@ static void drawregion(int, int, int, int);
 static void execsh(void);
 static void sigchld(int);
 static void run(void);
+static bool last_draw_too_old(void);
 
 static void csidump(void);
 static void csihandle(void);
@@ -203,6 +213,7 @@ static void tsetattr(int*, int);
 static void tsetchar(char*);
 static void tsetscroll(int, int);
 static void tswapscreen(void);
+static void tfulldirt(void);
 
 static void ttynew(void);
 static void ttyread(void);
@@ -212,6 +223,7 @@ static void ttywrite(const char *, size_t);
 static void xdraws(char *, Glyph, int, int, int, int);
 static void xhints(void);
 static void xclear(int, int, int, int);
+static void xcopy(int, int, int, int);
 static void xdrawcursor(void);
 static void xinit(void);
 static void xloadcols(void);
@@ -222,7 +234,7 @@ static void xresize(int, int);
 static void expose(XEvent *);
 static void visibility(XEvent *);
 static void unmap(XEvent *);
-static char* kmap(KeySym, unsigned int state);
+static char* kmap(KeySym, uint);
 static void kpress(XEvent *);
 static void cmessage(XEvent *);
 static void resize(XEvent *);
@@ -234,9 +246,10 @@ static void selnotify(XEvent *);
 static void selrequest(XEvent *);
 
 static void selinit(void);
-static inline int selected(int, int);
+static inline bool selected(int, int);
 static void selcopy(void);
 static void selpaste();
+static void selscroll(int, int);
 
 static int utf8decode(char *, long *);
 static int utf8encode(long *, char *);
@@ -274,31 +287,31 @@ static char *opt_class = NULL;
 
 int
 utf8decode(char *s, long *u) {
-	unsigned char c;
+	uchar c;
 	int i, n, rtn;
 
 	rtn = 1;
 	c = *s;
-	if(~c&B7) { /* 0xxxxxxx */
+	if(~c & B7) { /* 0xxxxxxx */
 		*u = c;
 		return rtn;
-	} else if((c&(B7|B6|B5)) == (B7|B6)) { /* 110xxxxx */
+	} else if((c & (B7|B6|B5)) == (B7|B6)) { /* 110xxxxx */
 		*u = c&(B4|B3|B2|B1|B0);
 		n = 1;
-	} else if((c&(B7|B6|B5|B4)) == (B7|B6|B5)) { /* 1110xxxx */
+	} else if((c & (B7|B6|B5|B4)) == (B7|B6|B5)) { /* 1110xxxx */
 		*u = c&(B3|B2|B1|B0);
 		n = 2;
-	} else if((c&(B7|B6|B5|B4|B3)) == (B7|B6|B5|B4)) { /* 11110xxx */
-		*u = c&(B2|B1|B0);
+	} else if((c & (B7|B6|B5|B4|B3)) == (B7|B6|B5|B4)) { /* 11110xxx */
+		*u = c & (B2|B1|B0);
 		n = 3;
 	} else
 		goto invalid;
-	for(i=n,++s; i>0; --i,++rtn,++s) {
+	for(i = n, ++s; i > 0; --i, ++rtn, ++s) {
 		c = *s;
-		if((c&(B7|B6)) != B7) /* 10xxxxxx */
+		if((c & (B7|B6)) != B7) /* 10xxxxxx */
 			goto invalid;
 		*u <<= 6;
-		*u |= c&(B5|B4|B3|B2|B1|B0);
+		*u |= c & (B5|B4|B3|B2|B1|B0);
 	}
 	if((n == 1 && *u < 0x80) ||
 	   (n == 2 && *u < 0x800) ||
@@ -313,11 +326,11 @@ invalid:
 
 int
 utf8encode(long *u, char *s) {
-	unsigned char *sp;
-	unsigned long uc;
+	uchar *sp;
+	ulong uc;
 	int i, n;
 
-	sp = (unsigned char*) s;
+	sp = (uchar*) s;
 	uc = *u;
 	if(uc < 0x80) {
 		*sp = uc; /* 0xxxxxxx */
@@ -349,11 +362,11 @@ invalid:
    UTF-8 otherwise return 0 */
 int
 isfullutf8(char *s, int b) {
-	unsigned char *c1, *c2, *c3;
+	uchar *c1, *c2, *c3;
 
-	c1 = (unsigned char *) s;
-	c2 = (unsigned char *) ++s;
-	c3 = (unsigned char *) ++s;
+	c1 = (uchar *) s;
+	c2 = (uchar *) ++s;
+	c3 = (uchar *) ++s;
 	if(b < 1)
 		return 0;
 	else if((*c1&(B7|B6|B5)) == (B7|B6) && b == 1)
@@ -373,7 +386,7 @@ isfullutf8(char *s, int b) {
 
 int
 utf8size(char *s) {
-	unsigned char c = *s;
+	uchar c = *s;
 
 	if(~c&B7)
 		return 1;
@@ -397,7 +410,7 @@ selinit(void) {
 		sel.xtarget = XA_STRING;
 }
 
-static inline int
+static inline bool
 selected(int x, int y) {
 	if(sel.ey == y && sel.by == y) {
 		int bx = MIN(sel.bx, sel.ex);
@@ -460,6 +473,9 @@ bpress(XEvent *e) {
 	if(IS_SET(MODE_MOUSE))
 		mousereport(e);
 	else if(e->xbutton.button == Button1) {
+		if(sel.bx != -1)
+			for(int i=sel.b.y; i<=sel.e.y; i++)
+				term.dirty[i] = 1;
 		sel.mode = 1;
 		sel.ex = sel.bx = X2COL(e->xbutton.x);
 		sel.ey = sel.by = Y2ROW(e->xbutton.y);
@@ -493,9 +509,9 @@ selcopy(void) {
 
 void
 selnotify(XEvent *e) {
-	unsigned long nitems, ofs, rem;
+	ulong nitems, ofs, rem;
 	int format;
-	unsigned char *data;
+	uchar *data;
 	Atom type;
 
 	ofs = 0;
@@ -539,12 +555,12 @@ selrequest(XEvent *e) {
 		Atom string = sel.xtarget;
 		XChangeProperty(xsre->display, xsre->requestor, xsre->property,
 				XA_ATOM, 32, PropModeReplace,
-				(unsigned char *) &string, 1);
+				(uchar *) &string, 1);
 		xev.property = xsre->property;
-	} else if(xsre->target == sel.xtarget) {
+	} else if(xsre->target == sel.xtarget && sel.clip != NULL) {
 		XChangeProperty(xsre->display, xsre->requestor, xsre->property,
 				xsre->target, 8, PropModeReplace,
-				(unsigned char *) sel.clip, strlen(sel.clip));
+				(uchar *) sel.clip, strlen(sel.clip));
 		xev.property = xsre->property;
 	}
 
@@ -580,6 +596,7 @@ brelease(XEvent *e) {
 	else if(e->xbutton.button == Button1) {
 		sel.mode = 0;
 		getbuttoninfo(e, NULL, &sel.ex, &sel.ey);
+		term.dirty[sel.ey] = 1;
 		if(sel.bx == sel.ex && sel.by == sel.ey) {
 			struct timeval now;
 			sel.bx = -1;
@@ -624,7 +641,9 @@ bmotion(XEvent *e) {
 		if(oldey != sel.ey || oldex != sel.ex) {
 			int starty = MIN(oldey, sel.ey);
 			int endy = MAX(oldey, sel.ey);
-			drawregion(0, (starty > 0 ? starty : 0), term.col, (endy < term.row ? endy+1 : term.row));
+			for(int i = starty; i <= endy; i++)
+				term.dirty[i] = 1;
+			draw();
 		}
 	}
 }
@@ -748,6 +767,14 @@ ttyresize(int x, int y) {
 }
 
 void
+tfulldirt(void)
+{
+	int i;
+	for(i = 0; i < term.row; i++)
+		term.dirty[i] = 1;
+}
+
+void
 tcursor(int mode) {
 	static TCursor c;
 
@@ -776,9 +803,12 @@ tnew(int col, int row) {
 	term.row = row, term.col = col;
 	term.line = malloc(term.row * sizeof(Line));
 	term.alt  = malloc(term.row * sizeof(Line));
+	term.dirty = malloc(term.row * sizeof(*term.dirty));
+
 	for(row = 0; row < term.row; row++) {
 		term.line[row] = malloc(term.col * sizeof(Glyph));
 		term.alt [row] = malloc(term.col * sizeof(Glyph));
+		term.dirty[row] = 0;
 	}
 	/* setup screen */
 	treset();
@@ -790,6 +820,7 @@ tswapscreen(void) {
 	term.line = term.alt;
 	term.alt = tmp;
 	term.mode ^= MODE_ALTSCREEN;
+	tfulldirt();
 }
 
 void
@@ -805,7 +836,12 @@ tscrolldown(int orig, int n) {
 		temp = term.line[i];
 		term.line[i] = term.line[i-n];
 		term.line[i-n] = temp;
+
+		term.dirty[i] = 1;
+		term.dirty[i-n] = 1;
 	}
+
+	selscroll(orig, n);
 }
 
 void
@@ -820,6 +856,34 @@ tscrollup(int orig, int n) {
 		 temp = term.line[i];
 		 term.line[i] = term.line[i+n];
 		 term.line[i+n] = temp;
+
+		 term.dirty[i] = 1;
+		 term.dirty[i+n] = 1;
+	}
+
+	selscroll(orig, -n);
+}
+
+void
+selscroll(int orig, int n) {
+	if(sel.bx == -1)
+		return;
+	
+	if(BETWEEN(sel.by, orig, term.bot) || BETWEEN(sel.ey, orig, term.bot)) {
+		if((sel.by += n) > term.bot || (sel.ey += n) < term.top) {
+			sel.bx = -1;
+			return;
+		}
+		if(sel.by < term.top) {
+			sel.by = term.top;
+			sel.bx = 0;
+		}
+		if(sel.ey > term.bot) {
+			sel.ey = term.bot;
+			sel.ex = term.col;
+		}
+		sel.b.y = sel.by, sel.b.x = sel.bx;
+		sel.e.y = sel.ey, sel.e.x = sel.ex;
 	}
 }
 
@@ -868,6 +932,7 @@ tmoveto(int x, int y) {
 
 void
 tsetchar(char *c) {
+	term.dirty[term.c.y] = 1;
 	term.line[term.c.y][term.c.x] = term.c.attr;
 	memcpy(term.line[term.c.y][term.c.x].c, c, UTF_SIZ);
 	term.line[term.c.y][term.c.x].state |= GLYPH_SET;
@@ -887,9 +952,11 @@ tclearregion(int x1, int y1, int x2, int y2) {
 	LIMIT(y1, 0, term.row-1);
 	LIMIT(y2, 0, term.row-1);
 
-	for(y = y1; y <= y2; y++)
+	for(y = y1; y <= y2; y++) {
+		term.dirty[y] = 1;
 		for(x = x1; x <= x2; x++)
 			term.line[y][x].state = 0;
+	}
 }
 
 void
@@ -897,6 +964,8 @@ tdeletechar(int n) {
 	int src = term.c.x + n;
 	int dst = term.c.x;
 	int size = term.col - src;
+	
+	term.dirty[term.c.y] = 1;
 
 	if(src >= term.col) {
 		tclearregion(term.c.x, term.c.y, term.col-1, term.c.y);
@@ -911,6 +980,8 @@ tinsertblank(int n) {
 	int src = term.c.x;
 	int dst = src + n;
 	int size = term.col - dst;
+
+	term.dirty[term.c.y] = 1;
 
 	if(dst >= term.col) {
 		tclearregion(term.c.x, term.c.y, term.col-1, term.c.y);
@@ -1077,6 +1148,7 @@ csihandle(void) {
 		break;
 	/* XXX: (CSI n I) CHT -- Cursor Forward Tabulation <n> tab stops */
 	case 'J': /* ED -- Clear screen */
+		sel.bx = -1;
 		switch(escseq.arg[0]) {
 		case 0: /* below */
 			tclearregion(term.c.x, term.c.y, term.col-1, term.c.y);
@@ -1377,11 +1449,13 @@ tputc(char *c) {
 				break;
 			default:
 				fprintf(stderr, "erresc: unknown sequence ESC 0x%02X '%c'\n",
-				    (unsigned char) ascii, isprint(ascii)?ascii:'.');
+				    (uchar) ascii, isprint(ascii)?ascii:'.');
 				term.esc = 0;
 			}
 		}
 	} else {
+		if(sel.bx != -1 && BETWEEN(term.c.y, sel.by, sel.ey))
+			sel.bx = -1;
 		switch(ascii) {
 		case '\t':
 			tputtab();
@@ -1449,9 +1523,11 @@ tresize(int col, int row) {
 	/* resize to new height */
 	term.line = realloc(term.line, row * sizeof(Line));
 	term.alt  = realloc(term.alt,  row * sizeof(Line));
+	term.dirty = realloc(term.dirty, row * sizeof(*term.dirty));
 
 	/* resize each row to new width, zero-pad if needed */
 	for(i = 0; i < minrow; i++) {
+		term.dirty[i] = 1;
 		term.line[i] = realloc(term.line[i], col * sizeof(Glyph));
 		term.alt[i]  = realloc(term.alt[i],  col * sizeof(Glyph));
 		for(x = mincol; x < col; x++) {
@@ -1462,6 +1538,7 @@ tresize(int col, int row) {
 
 	/* allocate any new rows */
 	for(/* i == minrow */; i < row; i++) {
+		term.dirty[i] = 1;
 		term.line[i] = calloc(col, sizeof(Glyph));
 		term.alt [i] = calloc(col, sizeof(Glyph));
 	}
@@ -1472,6 +1549,7 @@ tresize(int col, int row) {
 	tmoveto(term.c.x, term.c.y);
 	/* reset scrolling region */
 	tsetscroll(0, row-1);
+
 	return (slide > 0);
 }
 
@@ -1509,9 +1587,9 @@ void
 xloadcols(void) {
 	int i, r, g, b;
 	XColor color;
-	unsigned long white = WhitePixel(xw.dpy, xw.scr);
+	ulong white = WhitePixel(xw.dpy, xw.scr);
 
-	for(i = 0; i < 16; i++) {
+	for(i = 0; i < LEN(colorname); i++) {
 		if(!XAllocNamedColor(xw.dpy, xw.cmap, colorname[i], &color, &color)) {
 			dc.col[i] = white;
 			fprintf(stderr, "Could not allocate color '%s'\n", colorname[i]);
@@ -1683,7 +1761,7 @@ xinit(void) {
 
 void
 xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
-	unsigned long xfg = dc.col[base.fg], xbg = dc.col[base.bg], temp;
+	ulong xfg = dc.col[base.fg], xbg = dc.col[base.bg], temp;
 	int winx = x*xw.cw, winy = y*xw.ch + dc.font.ascent, width = charlen*xw.cw;
 	int i;
 	
@@ -1703,7 +1781,7 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
 
 	if(base.mode & ATTR_GFX) {
 		for(i = 0; i < bytelen; i++) {
-			char c = gfx[(unsigned int)s[i] % 256];
+			char c = gfx[(uint)s[i] % 256];
 			if(c)
 				s[i] = c;
 			else if(s[i] > 0x5f)
@@ -1716,6 +1794,14 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
 	
 	if(base.mode & ATTR_UNDERLINE)
 		XDrawLine(xw.dpy, xw.buf, dc.gc, winx, winy+1, winx+width-1, winy+1);
+}
+
+/* copy buffer pixmap to screen pixmap */
+void
+xcopy(int x, int y, int cols, int rows) {
+	int src_x = x*xw.cw, src_y = y*xw.ch, src_w = cols*xw.cw, src_h = rows*xw.ch;
+	int dst_x = BORDER+src_x, dst_y = BORDER+src_y;
+	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, src_x, src_y, src_w, src_h, dst_x, dst_y);
 }
 
 void
@@ -1737,7 +1823,9 @@ xdrawcursor(void) {
 		xdraws(term.line[oldy][oldx].c, term.line[oldy][oldx], oldx, oldy, 1, sl);
 	} else
 		xclear(oldx, oldy, oldx, oldy);
-	
+
+	xcopy(oldx, oldy, 1, 1);
+
 	/* draw the new one */
 	if(!(term.c.state & CURSOR_HIDE) && (xw.state & WIN_FOCUSED)) {
 		sl = utf8size(g.c);
@@ -1746,11 +1834,14 @@ xdrawcursor(void) {
 		xdraws(g.c, g, term.c.x, term.c.y, 1, sl);
 		oldx = term.c.x, oldy = term.c.y;
 	}
+
+	xcopy(term.c.x, term.c.y, 1, 1);
 }
 
 void
 draw() {
 	drawregion(0, 0, term.col, term.row);
+	gettimeofday(&xw.lastdraw, NULL);
 }
 
 void
@@ -1762,8 +1853,11 @@ drawregion(int x1, int y1, int x2, int y2) {
 	if(!(xw.state & WIN_VISIBLE))
 		return;
 
-	xclear(x1, y1, x2-1, y2-1);
 	for(y = y1; y < y2; y++) {
+		if(!term.dirty[y])
+			continue;
+		xclear(0, y, term.col, y);
+		term.dirty[y] = 0;
 		base = term.line[y][0];
 		ic = ib = ox = 0;
 		for(x = x1; x < x2; x++) {
@@ -1771,7 +1865,7 @@ drawregion(int x1, int y1, int x2, int y2) {
 			if(sel.bx != -1 && *(new.c) && selected(x, y))
 				new.mode ^= ATTR_REVERSE;
 			if(ib > 0 && (!(new.state & GLYPH_SET) || ATTRCMP(base, new) ||
-					ib >= DRAW_BUF_SIZ-UTF_SIZ)) {
+						  ib >= DRAW_BUF_SIZ-UTF_SIZ)) {
 				xdraws(buf, base, ox, y, ic, ib);
 				ic = ib = 0;
 			}
@@ -1788,9 +1882,9 @@ drawregion(int x1, int y1, int x2, int y2) {
 		}
 		if(ib > 0)
 			xdraws(buf, base, ox, y, ic, ib);
+		xcopy(0, y, term.col, 1);
 	}
 	xdrawcursor();
-	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, 0, 0, xw.bufw, xw.bufh, BORDER, BORDER);
 }
 
 void
@@ -1799,7 +1893,7 @@ expose(XEvent *ev) {
 	if(xw.state & WIN_REDRAW) {
 		if(!e->count) {
 			xw.state &= ~WIN_REDRAW;
-			draw();
+			xcopy(0, 0, term.col, term.row);
 		}
 	} else
 		XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, e->x-BORDER, e->y-BORDER,
@@ -1840,11 +1934,11 @@ focus(XEvent *ev) {
 }
 
 char*
-kmap(KeySym k, unsigned int state) {
+kmap(KeySym k, uint state) {
 	int i;
 	state &= ~Mod2Mask;
 	for(i = 0; i < LEN(key); i++) {
-		unsigned int mask = key[i].mask;
+		uint mask = key[i].mask;
 		if(key[i].k == k && ((state & mask) == mask || (mask == XK_NO_MOD && !state)))
 			return (char*)key[i].s;
 	}
@@ -1935,25 +2029,42 @@ resize(XEvent *e) {
 	xresize(col, row);
 }
 
+bool
+last_draw_too_old(void) {
+	struct timeval now;
+	gettimeofday(&now, NULL);
+	return TIMEDIFF(now, xw.lastdraw) >= DRAW_TIMEOUT/1000;
+}
+
 void
 run(void) {
 	XEvent ev;
 	fd_set rfd;
 	int xfd = XConnectionNumber(xw.dpy);
-
+	struct timeval timeout = {0};
+	bool stuff_to_print = 0;
+	
 	for(;;) {
 		FD_ZERO(&rfd);
 		FD_SET(cmdfd, &rfd);
 		FD_SET(xfd, &rfd);
-		if(select(MAX(xfd, cmdfd)+1, &rfd, NULL, NULL, NULL) < 0) {
+		timeout.tv_sec  = 0;
+		timeout.tv_usec = SELECT_TIMEOUT;
+		if(select(MAX(xfd, cmdfd)+1, &rfd, NULL, NULL, &timeout) < 0) {
 			if(errno == EINTR)
 				continue;
 			die("select failed: %s\n", SERRNO);
 		}
 		if(FD_ISSET(cmdfd, &rfd)) {
 			ttyread();
+			stuff_to_print = 1;
+		}
+
+		if(stuff_to_print && last_draw_too_old()) {
+			stuff_to_print = 0;
 			draw();
 		}
+
 		while(XPending(xw.dpy)) {
 			XNextEvent(xw.dpy, &ev);
 			if(XFilterEvent(&ev, xw.win))
@@ -1979,7 +2090,7 @@ main(int argc, char *argv[]) {
 		case 'w':
 			if(++i < argc) opt_embed = argv[i];
 			break;
-		case 'e': 
+		case 'e':
 			/* eat every remaining arguments */
 			if(++i < argc) opt_cmd = &argv[i];
 			goto run;
