@@ -1,29 +1,13 @@
-From bdb8e3472c3666689a9950c5f52783d94085b61f Mon Sep 17 00:00:00 2001
-From: Jari Aalto <jari.aalto@cante.net>
-Date: Tue, 20 Sep 2011 12:43:55 +0300
-Subject: [PATCH] st.c: Display version number without prefix
-Organization: Private
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-Signed-off-by: Jari Aalto <jari.aalto@cante.net>
----
- st.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/st.c b/st.c
-index c295de6..d283f7d 100644
 --- a/st.c
 +++ b/st.c
-@@ -34,7 +34,7 @@
+@@ -34,8 +34,8 @@
  #endif
  
  #define USAGE \
--	"st-" VERSION ", (c) 2010-2011 st engineers\n" \
-+	VERSION ", Copyright (C) 2010-2011 st engineers\n" \
- 	"usage: st [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
+-	"st " VERSION " (c) 2010-2011 st engineers\n" \
+-	"usage: st [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
++	VERSION " Copyright (C) 2010-2011 st engineers\n" \
++	"usage: stterm [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
  
  /* XEMBED messages */
--- 
-1.7.5.4
-
+ #define XEMBED_FOCUS_IN  4
