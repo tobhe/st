@@ -1,3 +1,9 @@
+stterm (0.0~20120124+hg226-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 24 Jan 2012 21:10:15 +0200
+
 stterm (0.0~20110920+hg212-4) unstable; urgency=low
 
   * debian/rules
