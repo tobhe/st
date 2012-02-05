@@ -13,6 +13,7 @@ SHAREROOTDIR	= $(PKGDIR)/usr/share
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 TERMINFO	= $(PKGDIR)/usr/share/terminfo
+export CFLAGS	= $(shell dpkg-buildflags --get CFLAGS)
 
 get-changelog:
 	# hg cannot list logs at remote URL, so run these manually
