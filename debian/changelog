@@ -1,8 +1,11 @@
 stterm (0.0~20120124+hg226-1) unstable; urgency=low
 
   * New upstream release
+  * debian/rules
+    - Use hardened CFLAGS (release goal).
+      http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 24 Jan 2012 21:10:15 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Sun, 05 Feb 2012 09:46:46 +0200
 
 stterm (0.0~20110920+hg212-4) unstable; urgency=low
 
