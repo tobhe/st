@@ -1,3 +1,19 @@
+stterm (0.0~20120124+hg226-2) unstable; urgency=low
+
+  * debian/compat
+    - Update to 9.
+  * debian/control
+    - (Build-Depends): Update to debhelper 9.
+    - (Standards-Version): Update to 3.9.3.1.
+  * debian/copyright
+    - Update to format 1.0.
+  * debian/rules
+    - Use hardened build flags
+      http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
+    - (override_dh_auto_build): New.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Fri, 23 Mar 2012 15:45:22 -0400
+
 stterm (0.0~20120124+hg226-1) unstable; urgency=low
 
   * New upstream release

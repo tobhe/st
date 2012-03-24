@@ -1,5 +1,4 @@
-Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
-X-Format: http://dep.debian.net/deps/dep5
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: stterm
 Upstream-Contact: Aurélien Aptell <aurelien.aptel@gmail.com>
 Source: http://st.suckless.org
@@ -10,13 +9,13 @@ X-Comment:
 
 Files: *
 Copyright:
- 2009-2011 Aurélien Aptell
- 2009 Anselm R Garbe <anselm@garbe.us>
+  2009-2011 Aurélien Aptell
+  2009 Anselm R Garbe <anselm@garbe.us>
 License: MIT
 
 Files: debian/*
 Copyright:
- 2009-2012 Jari Aalto <jari.aalto@cante.net>
+  2009-2012 Jari Aalto <jari.aalto@cante.net>
 License: GPL-2+
 
 License: MIT

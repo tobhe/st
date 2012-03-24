@@ -13,8 +13,17 @@ SHAREROOTDIR	= $(PKGDIR)/usr/share
 DOCROOTDIR	= $(SHAREROOTDIR)/doc
 PKGDOCDIR	= $(DOCROOTDIR)/$(PACKAGE)
 TERMINFO	= $(PKGDIR)/usr/share/terminfo
-export CFLAGS	= $(shell dpkg-buildflags --get CFLAGS)
-export LDFLAGS	= $(shell dpkg-buildflags --get LDFLAGS)
+
+export DEB_BUILD_MAINT_OPTIONS	= hardening=+all
+export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+# From original sources: config.mk
+
+CFLAGS += -std=c99 --param=ssp-buffer-size=4 \
+	  -I/usr/include -I/usr/X11R6/include -DVERSION=\"0.1.1\"
+
+LDFLAGS += -s -L/usr/lib -lc -L/usr/X11R6/lib -lX11 -lutil
 
 get-changelog:
 	# hg cannot list logs at remote URL, so run these manually
@@ -26,7 +35,13 @@ man:
 
 terminfo:
 	install -m 755 -d $(TERMINFO)/s
-	TERMINFO=$(TERMINFO) tic st.info
+	TERMINFO=$(TERMINFO) tic $(ORIGBIN).info
+
+override_dh_auto_build:
+	# Can't inject build flags to makefile; compile by hand
+	cp config.def.h config.h
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(ORIGBIN).c -o $(BIN) $(LDFLAGS)
+	rm -f config.h
 
 override_dh_installinfo:
 	# Disable; the *.info is not a info(1) but a terminfo file
@@ -36,11 +51,7 @@ override_dh_installchangelogs:
 
 override_dh_auto_install: man terminfo
 	# Upstream no good. Calls tic(1) which writes to $HOME
-	# $(MAKE) PREFIX=/usr DESTDIR=$(PKGDIR) install
-
-	# Rename binary to reflect "term"
-	install -m 755 -D $(ORIGBIN) $(BINDIR)/$(BIN)
-
+	install -m 755 -D $(BIN) $(BINDIR)/$(BIN)
 	install -m 644 -D \
 		$(ORIGBIN).info \
 		$(PKGDOCDIR)/examples/$(PACKAGE).terminfo
