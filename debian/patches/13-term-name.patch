@@ -1,0 +1,27 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Change st to more descriptive name stterm
+
+---
+ st.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/st.c
++++ b/st.c
+@@ -1724,7 +1724,7 @@
+ 	set = XCreateFontSet(xw.dpy, fontstr, &missing, &n, &def);
+ 	if(missing) {
+ 		while(n--)
+-			fprintf(stderr, "st: missing fontset: %s\n", missing[n]);
++			fprintf(stderr, "stterm: missing fontset: %s\n", missing[n]);
+ 		XFreeStringList(missing);
+ 	}
+ 	return set;
+@@ -1821,7 +1821,7 @@
+ 
+ 	xw.xembed = XInternAtom(xw.dpy, "_XEMBED", False);
+ 
+-	XStoreName(xw.dpy, xw.win, opt_title ? opt_title : "st");
++	XStoreName(xw.dpy, xw.win, opt_title ? opt_title : "stterm");
+ 	XMapWindow(xw.dpy, xw.win);
+ 	xhints();
+ 	XSync(xw.dpy, 0);
