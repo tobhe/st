@@ -34,7 +34,7 @@
 #endif
 
 #define USAGE \
-	"st " VERSION " (c) 2010-2011 st engineers\n" \
+	"st " VERSION " (c) 2010-2012 st engineers\n" \
 	"usage: st [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
 
 /* XEMBED messages */
@@ -66,30 +66,75 @@
 #define X2COL(x) (((x) - BORDER)/xw.cw)
 #define Y2ROW(y) (((y) - BORDER)/xw.ch)
 
-/* Attribute, Cursor, Character state, Terminal mode, Screen draw mode */
-enum { ATTR_NULL=0 , ATTR_REVERSE=1 , ATTR_UNDERLINE=2, ATTR_BOLD=4, ATTR_GFX=8 };
-enum { CURSOR_UP, CURSOR_DOWN, CURSOR_LEFT, CURSOR_RIGHT,
-       CURSOR_SAVE, CURSOR_LOAD };
-enum { CURSOR_DEFAULT = 0, CURSOR_HIDE = 1, CURSOR_WRAPNEXT = 2 };
-enum { GLYPH_SET=1, GLYPH_DIRTY=2 };
-enum { MODE_WRAP=1, MODE_INSERT=2, MODE_APPKEYPAD=4, MODE_ALTSCREEN=8,
-       MODE_CRLF=16, MODE_MOUSEBTN=32, MODE_MOUSEMOTION=64, MODE_MOUSE=32|64, MODE_REVERSE=128 };
-enum { ESC_START=1, ESC_CSI=2, ESC_OSC=4, ESC_TITLE=8, ESC_ALTCHARSET=16 };
-enum { WIN_VISIBLE=1, WIN_REDRAW=2, WIN_FOCUSED=4 };
+enum glyph_attribute {
+	ATTR_NULL      = 0,
+	ATTR_REVERSE   = 1,
+	ATTR_UNDERLINE = 2,
+	ATTR_BOLD      = 4,
+	ATTR_GFX       = 8,
+};
 
+enum cursor_movement {
+	CURSOR_UP,
+	CURSOR_DOWN,
+	CURSOR_LEFT,
+	CURSOR_RIGHT,
+	CURSOR_SAVE,
+	CURSOR_LOAD
+};
+
+enum cursor_state {
+	CURSOR_DEFAULT  = 0,
+	CURSOR_HIDE     = 1,
+	CURSOR_WRAPNEXT = 2
+};
+
+enum glyph_state {
+	GLYPH_SET   = 1,
+	GLYPH_DIRTY = 2
+};
+
+enum term_mode {
+	MODE_WRAP        = 1,
+	MODE_INSERT      = 2,
+	MODE_APPKEYPAD   = 4,
+	MODE_ALTSCREEN   = 8,
+	MODE_CRLF        = 16,
+	MODE_MOUSEBTN    = 32,
+	MODE_MOUSEMOTION = 64,
+	MODE_MOUSE       = 32|64,
+	MODE_REVERSE     = 128
+};
+
+enum escape_state {
+	ESC_START      = 1,
+	ESC_CSI        = 2,
+	ESC_OSC        = 4,
+	ESC_TITLE      = 8,
+	ESC_ALTCHARSET = 16
+};
+
+enum window_state {
+	WIN_VISIBLE = 1,
+	WIN_REDRAW  = 2,
+	WIN_FOCUSED = 4
+};
+
+/* bit macro */
 #undef B0
 enum { B0=1, B1=2, B2=4, B3=8, B4=16, B5=32, B6=64, B7=128 };
 
 typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef unsigned long ulong;
+typedef unsigned short ushort;
 
 typedef struct {
 	char c[UTF_SIZ];     /* character code */
-	char mode;  /* attribute flags */
-	int fg;     /* foreground      */
-	int bg;     /* background      */
-	char state; /* state flags     */
+	uchar mode;  /* attribute flags */
+	ushort fg;   /* foreground  */
+	ushort bg;   /* background  */
+	uchar state; /* state flags    */
 } Glyph;
 
 typedef Glyph* Line;
@@ -154,18 +199,6 @@ typedef struct {
 	char s[ESC_BUF_SIZ];
 } Key;
 
-/* Drawing Context */
-typedef struct {
-	ulong col[256];
-	GC gc;
-	struct {
-		int ascent;
-		int descent;
-		short lbearing;
-		short rbearing;
-		XFontSet set;
-	} font, bfont;
-} DC;
 
 /* TODO: use better name for vars... */
 typedef struct {
@@ -180,6 +213,19 @@ typedef struct {
 } Selection;
 
 #include "config.h"
+
+/* Drawing Context */
+typedef struct {
+	ulong col[LEN(colorname) < 256 ? 256 : LEN(colorname)];
+	GC gc;
+	struct {
+		int ascent;
+		int descent;
+		short lbearing;
+		short rbearing;
+		XFontSet set;
+	} font, bfont;
+} DC;
 
 static void die(const char*, ...);
 static void draw(void);
@@ -213,6 +259,7 @@ static void tsetattr(int*, int);
 static void tsetchar(char*);
 static void tsetscroll(int, int);
 static void tswapscreen(void);
+static void tsetdirt(int, int);
 static void tfulldirt(void);
 
 static void ttynew(void);
@@ -400,8 +447,8 @@ utf8size(char *s) {
 
 void
 selinit(void) {
-	sel.tclick1.tv_sec = 0;
-	sel.tclick1.tv_usec = 0;
+	memset(&sel.tclick1, 0, sizeof(sel.tclick1));
+	memset(&sel.tclick2, 0, sizeof(sel.tclick2));
 	sel.mode = 0;
 	sel.bx = -1;
 	sel.clip = NULL;
@@ -474,8 +521,7 @@ bpress(XEvent *e) {
 		mousereport(e);
 	else if(e->xbutton.button == Button1) {
 		if(sel.bx != -1)
-			for(int i=sel.b.y; i<=sel.e.y; i++)
-				term.dirty[i] = 1;
+			tsetdirt(sel.b.y, sel.e.y);
 		sel.mode = 1;
 		sel.ex = sel.bx = X2COL(e->xbutton.x);
 		sel.ey = sel.by = Y2ROW(e->xbutton.y);
@@ -485,21 +531,28 @@ bpress(XEvent *e) {
 void
 selcopy(void) {
 	char *str, *ptr;
-	int x, y, sz, sl, ls = 0;
+	int x, y, bufsize, is_selected = 0;
 
 	if(sel.bx == -1)
 		str = NULL;
+
 	else {
-		sz = (term.col+1) * (sel.e.y-sel.b.y+1) * UTF_SIZ;
-		ptr = str = malloc(sz);
+		bufsize = (term.col+1) * (sel.e.y-sel.b.y+1) * UTF_SIZ;
+		ptr = str = malloc(bufsize);
+
+		/* append every set & selected glyph to the selection */
 		for(y = 0; y < term.row; y++) {
-			for(x = 0; x < term.col; x++)
-				if(term.line[y][x].state & GLYPH_SET && (ls = selected(x, y))) {
-					sl = utf8size(term.line[y][x].c);
-					memcpy(ptr, term.line[y][x].c, sl);
-					ptr += sl;
+			for(x = 0; x < term.col; x++) {
+				is_selected = selected(x, y);
+				if((term.line[y][x].state & GLYPH_SET) && is_selected) {
+					int size = utf8size(term.line[y][x].c);
+					memcpy(ptr, term.line[y][x].c, size);
+					ptr += size;
 				}
-			if(ls && y < sel.e.y)
+			}
+
+			/* \n at the end of every selected line except for the last one */
+			if(is_selected && y < sel.e.y)
 				*ptr++ = '\n';
 		}
 		*ptr = 0;
@@ -641,8 +694,7 @@ bmotion(XEvent *e) {
 		if(oldey != sel.ey || oldex != sel.ex) {
 			int starty = MIN(oldey, sel.ey);
 			int endy = MAX(oldey, sel.ey);
-			for(int i = starty; i <= endy; i++)
-				term.dirty[i] = 1;
+			tsetdirt(starty, endy);
 			draw();
 		}
 	}
@@ -663,7 +715,7 @@ execsh(void) {
 	char **args;
 	char *envshell = getenv("SHELL");
 
-	DEFAULT(envshell, "sh");
+	DEFAULT(envshell, SHELL);
 	putenv("TERM="TNAME);
 	args = opt_cmd ? opt_cmd : (char*[]){envshell, "-i", NULL};
 	execvp(args[0], args);
@@ -767,11 +819,21 @@ ttyresize(int x, int y) {
 }
 
 void
-tfulldirt(void)
+tsetdirt(int top, int bot)
 {
 	int i;
-	for(i = 0; i < term.row; i++)
+
+	LIMIT(top, 0, term.row-1);
+	LIMIT(bot, 0, term.row-1);
+
+	for(i = top; i <= bot; i++)
 		term.dirty[i] = 1;
+}
+
+void
+tfulldirt(void)
+{
+	tsetdirt(0, term.row-1);
 }
 
 void
@@ -1342,12 +1404,15 @@ csihandle(void) {
 void
 csidump(void) {
 	int i;
-	printf("ESC [ %s", escseq.priv ? "? " : "");
-	if(escseq.narg)
-		for(i = 0; i < escseq.narg; i++)
-			printf("%d ", escseq.arg[i]);
-	if(escseq.mode)
-		putchar(escseq.mode);
+	printf("ESC[");
+	for(i = 0; i < escseq.len; i++) {
+		uint c = escseq.buf[i] & 0xff;
+		if(isprint(c)) putchar(c);
+		else if(c == '\n') printf("(\\n)");
+		else if(c == '\r') printf("(\\r)");
+		else if(c == 0x1b) printf("(\\e)");
+		else printf("(%02x)", c);
+	}
 	putchar('\n');
 }
 
@@ -1589,16 +1654,19 @@ xloadcols(void) {
 	XColor color;
 	ulong white = WhitePixel(xw.dpy, xw.scr);
 
+	/* load colors [0-15] colors and [256-LEN(colorname)[ (config.h) */
 	for(i = 0; i < LEN(colorname); i++) {
+		if(!colorname[i])
+			continue;
 		if(!XAllocNamedColor(xw.dpy, xw.cmap, colorname[i], &color, &color)) {
 			dc.col[i] = white;
 			fprintf(stderr, "Could not allocate color '%s'\n", colorname[i]);
 		} else
 			dc.col[i] = color.pixel;
 	}
-
-	/* same colors as xterm */
-	for(r = 0; r < 6; r++)
+	
+	/* load colors [16-255] ; same colors as xterm */
+	for(i = 16, r = 0; r < 6; r++)
 		for(g = 0; g < 6; g++)
 			for(b = 0; b < 6; b++) {
 				color.red = r == 0 ? 0 : 0x3737 + 0x2828 * r;
@@ -1761,23 +1829,29 @@ xinit(void) {
 
 void
 xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
-	ulong xfg = dc.col[base.fg], xbg = dc.col[base.bg], temp;
+	int fg = base.fg, bg = base.bg, temp;
 	int winx = x*xw.cw, winy = y*xw.ch + dc.font.ascent, width = charlen*xw.cw;
+	XFontSet fontset = dc.font.set;
 	int i;
 	
 	/* only switch default fg/bg if term is in RV mode */
 	if(IS_SET(MODE_REVERSE)) {
-		if(base.fg == DefaultFG)
-			xfg = dc.col[DefaultBG];
-		if(base.bg == DefaultBG)
-			xbg = dc.col[DefaultFG];
+		if(fg == DefaultFG)
+			fg = DefaultBG;
+		if(bg == DefaultBG)
+			bg = DefaultFG;
 	}
 
 	if(base.mode & ATTR_REVERSE)
-		temp = xfg, xfg = xbg, xbg = temp;
+		temp = fg, fg = bg, bg = temp;
 
-	XSetBackground(xw.dpy, dc.gc, xbg);
-	XSetForeground(xw.dpy, dc.gc, xfg);
+	if(base.mode & ATTR_BOLD) {
+		fg += 8;
+		fontset = dc.bfont.set;
+	}
+
+	XSetBackground(xw.dpy, dc.gc, dc.col[bg]);
+	XSetForeground(xw.dpy, dc.gc, dc.col[fg]);
 
 	if(base.mode & ATTR_GFX) {
 		for(i = 0; i < bytelen; i++) {
@@ -1789,8 +1863,7 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
 		}
 	}
 
-	XmbDrawImageString(xw.dpy, xw.buf, base.mode & ATTR_BOLD ? dc.bfont.set : dc.font.set,
-		dc.gc, winx, winy, s, bytelen);
+	XmbDrawImageString(xw.dpy, xw.buf, fontset, dc.gc, winx, winy, s, bytelen);
 	
 	if(base.mode & ATTR_UNDERLINE)
 		XDrawLine(xw.dpy, xw.buf, dc.gc, winx, winy+1, winx+width-1, winy+1);
@@ -1827,10 +1900,14 @@ xdrawcursor(void) {
 	xcopy(oldx, oldy, 1, 1);
 
 	/* draw the new one */
-	if(!(term.c.state & CURSOR_HIDE) && (xw.state & WIN_FOCUSED)) {
-		sl = utf8size(g.c);
+	if(!(term.c.state & CURSOR_HIDE)) {
+		if(!(xw.state & WIN_FOCUSED))
+			g.bg = DefaultUCS;
+
 		if(IS_SET(MODE_REVERSE))
 			g.mode |= ATTR_REVERSE, g.fg = DefaultCS, g.bg = DefaultFG;
+
+		sl = utf8size(g.c);
 		xdraws(g.c, g, term.c.x, term.c.y, 1, sl);
 		oldx = term.c.x, oldy = term.c.y;
 	}

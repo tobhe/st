@@ -1,12 +1,16 @@
-#define TAB 8
-#define TNAME "st-256color"
+
 #define FONT "-*-*-medium-r-*-*-*-120-75-75-*-60-*-*"
 #define BOLDFONT "-*-*-bold-r-*-*-*-120-75-75-*-60-*-*"
+
+/* Space in pixels around the terminal buffer */
 #define BORDER 2
+
+/* Default shell to use if SHELL is not set in the env */
 #define SHELL "/bin/sh"
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
+	/* 8 normal colors */
 	"black",
 	"red3",
 	"green3",
@@ -15,6 +19,8 @@ static const char *colorname[] = {
 	"magenta3",
 	"cyan3",
 	"gray90",
+
+	/* 8 bright colors */
 	"gray50",
 	"red",
 	"green",
@@ -22,14 +28,21 @@ static const char *colorname[] = {
 	"#5c5cff",
 	"magenta",
 	"cyan",
-	"white"
+	"white",
+	
+	[255] = 0,
+	
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#cccccc",
+	"#333333",
 };
 
 /* Default colors (colorname index)
-   foreground, background, cursor   */
-#define DefaultFG 7
-#define DefaultBG 0
-#define DefaultCS 1
+   foreground, background, cursor, unfocused cursor */
+#define DefaultFG  7
+#define DefaultBG  0
+#define DefaultCS  256
+#define DefaultUCS 257
 
 /* Special keys (change & recompile st.info accordingly)
    Keep in mind that kpress() in st.c hardcodes some keys.
@@ -61,6 +74,9 @@ static Key key[] = {
 	{ XK_F12,       XK_NO_MOD, "\033[24~" },
 };
 
+/* Set TERM to this */
+#define TNAME "st-256color"
+
 /* Line drawing characters (sometime specific to each font...) */
 static char gfx[] = {
 	['f'] = 'o',
@@ -72,3 +88,5 @@ static char gfx[] = {
 /* double-click timeout (in milliseconds) between clicks for selection */
 #define DOUBLECLICK_TIMEOUT 300
 #define TRIPLECLICK_TIMEOUT (2*DOUBLECLICK_TIMEOUT)
+
+#define TAB 8
