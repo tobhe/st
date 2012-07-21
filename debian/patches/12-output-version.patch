@@ -2,15 +2,19 @@ From: Jari Aalto <jari.aalto@cante.net>
 Date: Tue, 20 Sep 2011 12:43:55 +0300
 Subject: [PATCH] st.c: Display version number without prefix
 
+---
+ st.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 --- a/st.c
 +++ b/st.c
 @@ -34,8 +34,8 @@
  #endif
  
  #define USAGE \
--	"st " VERSION " (c) 2010-2011 st engineers\n" \
+-	"st " VERSION " (c) 2010-2012 st engineers\n" \
 -	"usage: st [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
-+	VERSION " Copyright (C) 2010-2011 st engineers\n" \
++	"st " VERSION " Copyright (C) 2010-2012 st engineers\n" \
 +	"usage: stterm [-t title] [-c class] [-w windowid] [-v] [-e command...]\n"
  
  /* XEMBED messages */
