@@ -2,9 +2,9 @@ stterm (0.0~20120227+hg244-1) unstable; urgency=low
 
   * New upstream release.
   * debian/patches
-    - (13): Update name st to stterm in window title.
+    - (13): New. Update name st to stterm in window title.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 21 Jul 2012 10:41:56 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 21 Jul 2012 10:57:50 +0300
 
 stterm (0.0~20120124+hg226-2) unstable; urgency=low
 
