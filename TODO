@@ -1,25 +1,31 @@
 vt emulation
 ------------
 
-* screen erased with background color ## capname:bce
-* back tab                            ## capname:cbt ## seq:CSI Z
-* ...
+* implement BCE right
+* color definition in CSI
+	* implement CSI parsing
+* wide-character support in conjunction with fallback xft code 
+* mouse selection support
 
 code & interface
 ----------------
 
-* clean selection code
 * clean and complete terminfo entry
-* fast drawing
-* ...
+* add fallback fonts for the restricted xft code
+* add a simple way to do multiplexing
 
 bugs
 ----
 
 * handle XOpenMI() errors
 * fix shift up/down (shift selection in emacs)
-* fix selection click
 * fix selection paste for xatom STRING
+* fix umlaut handling in settitle
+* fix rows and column definition in fixed geometry
+* fix -e handling
+* remove DEC test sequence when appropriate
+* reverse cursor when drawin light on light background
+	* text should be readable
 
 misc
 ----

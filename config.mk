@@ -1,5 +1,5 @@
 # st version
-VERSION = 0.2.1-tip
+VERSION = 0.3
 
 # Customize below to fit your system
 
@@ -11,13 +11,14 @@ X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
 
 # includes and libs
-INCS = -I. -I/usr/include -I${X11INC}
-LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 -lutil
+INCS = -I. -I/usr/include -I${X11INC} -I/usr/include/freetype2
+LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 -lutil -lXext -lXft -lfontconfig
 
 # flags
 CPPFLAGS = -DVERSION=\"${VERSION}\"
-CFLAGS += -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
-LDFLAGS += -s ${LIBS}
+CFLAGS += -g -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
+LDFLAGS += -g ${LIBS}
 
 # compiler and linker
 CC ?= cc
+
