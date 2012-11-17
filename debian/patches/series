@@ -1,3 +1,4 @@
 12-output-version.patch
 13-term-name.patch
 20-st.info.patch
+30-config.def.h.patch

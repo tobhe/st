@@ -1,0 +1,18 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Rename from st to stterm
+
+---
+ config.def.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/config.def.h
++++ b/config.def.h
+@@ -75,7 +75,7 @@
+ };
+ 
+ /* Set TERM to this */
+-#define TNAME "st-256color"
++#define TNAME "stterm-256color"
+ 
+ /* Line drawing characters (sometime specific to each font...) */
+ static char gfx[] = {
