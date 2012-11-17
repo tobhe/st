@@ -5,6 +5,7 @@
 PACKAGE		= stterm
 ORIGBIN		= st
 CHANGELOG	= debian/upstream.changelog
+UPSTREAM_DIR    = ../upstream.hg
 
 BIN		= $(PACKAGE)
 PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
@@ -27,8 +28,11 @@ LDFLAGS += -s -L/usr/lib -lc -L/usr/X11R6/lib -lX11 -lutil
 
 get-changelog:
 	# hg cannot list logs at remote URL, so run these manually
-	@echo "hg clone http://hg.suckless.org/st"
-	@echo "hg log | head -n 100 > $$(pwd)/$(CHANGELOG)"
+	# hg cannot list logs at remote URL, so run these manually
+	[ -d $(UPSTREAM_DIR) ] || hg clone http://hg.suckless.org/st $(UPSTREAM_DIR)
+
+	pwd=$$(pwd); \
+	cd $(UPSTREAM_DIR) hg log | head -n 100 > $$pwd/$(CHANGELOG)"
 
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
