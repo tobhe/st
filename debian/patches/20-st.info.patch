@@ -8,8 +8,8 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
- st.info |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ st.info |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 --- a/st.info
 +++ b/st.info
@@ -21,9 +21,9 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  #	bce,
-@@ -102,8 +102,8 @@
- 	ul,
- 	xenl,
+@@ -180,8 +180,8 @@
+ 	vpa=\E[%i%p1%dd,
+ 
  
 -st-256color| simpleterm with 256 colors,
 -	use=st,

@@ -7,12 +7,12 @@ Subject: Rename from st to stterm
 
 --- a/config.def.h
 +++ b/config.def.h
-@@ -75,7 +75,7 @@
- };
+@@ -10,7 +10,7 @@
+ static unsigned int tripleclicktimeout = 600;
  
- /* Set TERM to this */
--#define TNAME "st-256color"
-+#define TNAME "stterm-256color"
+ /* TERM value */
+-static char termname[] = "st-256color";
++static char termname[] = "stterm-256color";
  
- /* Line drawing characters (sometime specific to each font...) */
- static char gfx[] = {
+ static unsigned int tabspaces = 8;
+ 

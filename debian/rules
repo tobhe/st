@@ -22,9 +22,10 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 # From original sources: config.mk
 
 CFLAGS += -std=c99 --param=ssp-buffer-size=4 \
-	  -I/usr/include -I/usr/X11R6/include -DVERSION=\"0.1.1\"
+	  -I/usr/include -I/usr/X11R6/include -DVERSION=\"0.3\" \
+	  $$(pkg-config --cflags freetype2)
 
-LDFLAGS += -s -L/usr/lib -lc -L/usr/X11R6/lib -lX11 -lutil
+LDFLAGS += -s -L/usr/lib -lc -L/usr/X11R6/lib -lX11 -lutil -lXext -lXft -lfontconfig
 
 get-changelog:
 	# hg cannot list logs at remote URL, so run these manually
