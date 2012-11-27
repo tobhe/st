@@ -2,7 +2,7 @@ stterm (0.3+20121116+hg424-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control
-    - (Build-Depends): Add libfreetype6-dev, libxext-dev.
+    - (Build-Depends): Add libfreetype6-dev, libxext-dev, pkg-config.
     - (Standards-Version): Update to 3.9.4.
   * debian/patches
     - (12, 13, 20): Refresh for current release.
