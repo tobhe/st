@@ -7,8 +7,8 @@ Subject: Rename from st to stterm
 
 --- a/config.def.h
 +++ b/config.def.h
-@@ -10,7 +10,7 @@
- static unsigned int tripleclicktimeout = 600;
+@@ -27,7 +27,7 @@
+ static unsigned int blinktimeout = 800;
  
  /* TERM value */
 -static char termname[] = "st-256color";

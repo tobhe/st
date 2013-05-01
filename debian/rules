@@ -19,10 +19,23 @@ export DEB_BUILD_MAINT_OPTIONS	= hardening=+all
 export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+# Needed for gcc:
+# warning: implicit declaration of function 'unsetenv'
+# warning: implicit declaration of function 'setenv'
+# warning: implicit declaration of function 'nanosleep'
+# warning: implicit declaration of function 'kill'
+
+export DEB_CFLAGS_MAINT_APPEND += -D_POSIX_C_SOURCE=200112L
+
+# warning: implicit declaration of function 'strsep'
+
+export DEB_CFLAGS_MAINT_APPEND += \
+    -D_BSD_SOURCE -D_XOPEN_SOURCE=600
+
 # From original sources: config.mk
 
 CFLAGS += -std=c99 --param=ssp-buffer-size=4 \
-	  -I/usr/include -I/usr/X11R6/include -DVERSION=\"0.3\" \
+	  -I/usr/include -I/usr/X11R6/include -DVERSION=\"0.4.1\" \
 	  $$(pkg-config --cflags freetype2)
 
 LDFLAGS += -s -L/usr/lib -lc -L/usr/X11R6/lib -lX11 -lutil -lXext -lXft -lfontconfig

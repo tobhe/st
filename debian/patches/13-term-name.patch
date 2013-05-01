@@ -7,7 +7,7 @@ Subject: Change st to more descriptive name stterm
 
 --- a/st.c
 +++ b/st.c
-@@ -2308,7 +2308,7 @@
+@@ -2641,7 +2641,7 @@
  	}
  
  	if(!pattern)
@@ -16,8 +16,8 @@ Subject: Change st to more descriptive name stterm
  
  	if(fontsize > 0) {
  		FcPatternDel(pattern, FC_PIXEL_SIZE);
-@@ -2329,7 +2329,7 @@
- 	}
+@@ -2665,7 +2665,7 @@
+ 	FcDefaultSubstitute(pattern);
  
  	if(xloadfont(&dc.font, pattern))
 -		die("st: can't open font %s\n", fontstr);
@@ -25,32 +25,33 @@ Subject: Change st to more descriptive name stterm
  
  	/* Setting character width and height. */
  	xw.cw = dc.font.width;
-@@ -2338,16 +2338,16 @@
- 	FcPatternDel(pattern, FC_WEIGHT);
- 	FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
- 	if(xloadfont(&dc.bfont, pattern))
+@@ -2674,17 +2674,17 @@
+ 	FcPatternDel(pattern, FC_SLANT);
+ 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
+ 	if(xloadfont(&dc.ifont, pattern))
 -		die("st: can't open font %s\n", fontstr);
 +		die("stterm: can't open font %s\n", fontstr);
  
- 	FcPatternDel(pattern, FC_SLANT);
- 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
+ 	FcPatternDel(pattern, FC_WEIGHT);
+ 	FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
  	if(xloadfont(&dc.ibfont, pattern))
 -		die("st: can't open font %s\n", fontstr);
 +		die("stterm: can't open font %s\n", fontstr);
  
- 	FcPatternDel(pattern, FC_WEIGHT);
- 	if(xloadfont(&dc.ifont, pattern))
+ 	FcPatternDel(pattern, FC_SLANT);
+ 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ROMAN);
+ 	if(xloadfont(&dc.bfont, pattern))
 -		die("st: can't open font %s\n", fontstr);
 +		die("stterm: can't open font %s\n", fontstr);
  
  	FcPatternDestroy(pattern);
  }
-@@ -2573,7 +2573,7 @@
+@@ -3133,7 +3133,7 @@
  
  void
  xresettitle(void) {
--	XStoreName(xw.dpy, xw.win, opt_title ? opt_title : "st");
-+	XStoreName(xw.dpy, xw.win, opt_title ? opt_title : "stterm");
+-	xsettitle(opt_title ? opt_title : "st");
++	xsettitle(opt_title ? opt_title : "stterm");
  }
  
  void

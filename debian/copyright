@@ -3,7 +3,7 @@ Upstream-Name: stterm
 Upstream-Contact: Aurélien Aptell <aurelien.aptel@gmail.com>
 Source: http://st.suckless.org
 Comment: Dowload is only available from VCS tree.
-X-Vcs-Hg: http://hg.suckless.org/st
+X-Vcs-Git: http://git.suckless.org/st
 X-Upstream-Bugs:  deve@suckless.org
 X-Upstream-Irc: #suckless@irc.oftc.net
 X-Gmane: http://dir.gmane.org/gmane.comp.misc.suckless

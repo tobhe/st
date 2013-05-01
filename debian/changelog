@@ -1,3 +1,15 @@
+stterm (0.4.1+20130501+git8618386-1) unstable; urgency=low
+
+  * New upstream release (Closes: #706549).
+  * debian/copyright
+    - (X-Vcs-Git): Update from Hg to Git repository.
+  * debian/patches
+    - (12, 13, 20, 30): Refresh for current release.
+  * debian/rules
+    - Update build flags for current release. E.g VERSION 0.4.1.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 01 May 2013 22:14:31 +0300
+
 stterm (0.3+20121116+hg424-1) unstable; urgency=low
 
   * New upstream release.
