@@ -1,3 +1,13 @@
+stterm (0.4.1+20130511+git8f47c4a-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/rules
+    - (get-changelog): Update to new Git repository.
+  * debian/upstream.changelog
+    - Sync with release (Closes: #709318).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 23 May 2013 10:48:58 +0300
+
 stterm (0.4.1+20130501+git8618386-1) unstable; urgency=low
 
   * New upstream release (Closes: #706549).
