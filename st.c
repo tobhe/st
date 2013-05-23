@@ -363,11 +363,13 @@ static void xloadcols(void);
 static int xsetcolorname(int, const char *);
 static int xloadfont(Font *, FcPattern *);
 static void xloadfonts(char *, int);
+static int xloadfontset(Font *);
 static void xsettitle(char *);
 static void xresettitle(void);
 static void xseturgency(int);
 static void xsetsel(char*);
 static void xtermclear(int, int, int, int);
+static void xunloadfont(Font *f);
 static void xunloadfonts(void);
 static void xresize(int, int);
 
@@ -679,8 +681,14 @@ selected(int x, int y) {
 
 void
 selsnap(int mode, int *x, int *y, int direction) {
+	int i;
+
 	switch(mode) {
 	case SNAP_WORD:
+		/*
+		 * Snap around if the word wraps around at the end or
+		 * beginning of a line.
+		 */
 		for(;;) {
 			if(direction < 0 && *x <= 0) {
 				if(*y > 0 && term.line[*y - 1][term.col-1].mode
@@ -701,13 +709,20 @@ selsnap(int mode, int *x, int *y, int direction) {
 				}
 			}
 
-			if(term.line[*y][*x + direction].c[0] == ' ')
+			if(strchr(worddelimiters,
+					term.line[*y][*x + direction].c[0])) {
 				break;
+			}
 
 			*x += direction;
 		}
 		break;
 	case SNAP_LINE:
+		/*
+		 * Snap around if the the previous line or the current one
+		 * has set ATTR_WRAP at its end. Then the whole next or
+		 * previous line will be selected.
+		 */
 		*x = (direction < 0) ? 0 : term.col - 1;
 		if(direction < 0 && *y > 0) {
 			for(; *y > 0; *y += direction) {
@@ -726,6 +741,16 @@ selsnap(int mode, int *x, int *y, int direction) {
 		}
 		break;
 	default:
+		/*
+		 * Select the whole line when the end of line is reached.
+		 */
+		if(direction > 0) {
+			i = term.col;
+			while(--i > 0 && term.line[*y][i].c[0] == ' ')
+				/* nothing */;
+			if(i > 0 && i < *x)
+				*x = term.col - 1;
+		}
 		break;
 	}
 }
@@ -879,7 +904,7 @@ bpress(XEvent *e) {
 void
 selcopy(void) {
 	char *str, *ptr;
-	int x, y, bufsize, size;
+	int x, y, bufsize, size, i, ex;
 	Glyph *gp, *last;
 
 	if(sel.bx == -1) {
@@ -917,6 +942,21 @@ selcopy(void) {
 			 */
 			if(y < sel.e.y && !((gp-1)->mode & ATTR_WRAP))
 				*ptr++ = '\n';
+
+			/*
+			 * If the last selected line expands in the selection
+			 * after the visible text '\n' is appended.
+			 */
+			if(y == sel.e.y) {
+				i = term.col;
+				while(--i > 0 && term.line[y][i].c[0] == ' ')
+					/* nothing */;
+				ex = sel.e.x;
+				if(sel.b.y == sel.e.y && sel.e.x < sel.b.x)
+					ex = sel.b.x;
+				if(i < ex)
+					*ptr++ = '\n';
+			}
 		}
 		*ptr = 0;
 	}
@@ -2605,16 +2645,12 @@ xloadfont(Font *f, FcPattern *pattern) {
 	if(!match)
 		return 1;
 
-	if(!(f->set = FcFontSort(0, match, FcTrue, 0, &result))) {
-		FcPatternDestroy(match);
-		return 1;
-	}
-
 	if(!(f->match = XftFontOpenPattern(xw.dpy, match))) {
 		FcPatternDestroy(match);
 		return 1;
 	}
 
+	f->set = NULL;
 	f->pattern = FcPatternDuplicate(pattern);
 
 	f->ascent = f->match->ascent;
@@ -2689,6 +2725,23 @@ xloadfonts(char *fontstr, int fontsize) {
 	FcPatternDestroy(pattern);
 }
 
+int
+xloadfontset(Font *f) {
+	FcResult result;
+
+	if(!(f->set = FcFontSort(0, f->pattern, FcTrue, 0, &result)))
+		return 1;
+	return 0;
+}
+
+void
+xunloadfont(Font *f) {
+	XftFontClose(xw.dpy, f->match);
+	FcPatternDestroy(f->pattern);
+	if(f->set)
+		FcFontSetDestroy(f->set);
+}
+
 void
 xunloadfonts(void) {
 	int i, ip;
@@ -2705,18 +2758,10 @@ xunloadfonts(void) {
 	frccur = -1;
 	frclen = 0;
 
-	XftFontClose(xw.dpy, dc.font.match);
-	FcPatternDestroy(dc.font.pattern);
-	FcFontSetDestroy(dc.font.set);
-	XftFontClose(xw.dpy, dc.bfont.match);
-	FcPatternDestroy(dc.bfont.pattern);
-	FcFontSetDestroy(dc.bfont.set);
-	XftFontClose(xw.dpy, dc.ifont.match);
-	FcPatternDestroy(dc.ifont.pattern);
-	FcFontSetDestroy(dc.ifont.set);
-	XftFontClose(xw.dpy, dc.ibfont.match);
-	FcPatternDestroy(dc.ibfont.pattern);
-	FcFontSetDestroy(dc.ibfont.set);
+	xunloadfont(&dc.font);
+	xunloadfont(&dc.bfont);
+	xunloadfont(&dc.ifont);
+	xunloadfont(&dc.ibfont);
 }
 
 void
@@ -2949,7 +2994,6 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
 	r.width = width;
 	XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
 
-	fcsets[0] = font->set;
 	for(xp = winx; bytelen > 0;) {
 		/*
 		 * Search for the range in the to be printed string of glyphs
@@ -3007,6 +3051,10 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
 
 		/* Nothing was found. */
 		if(i >= frclen) {
+			if(!font->set)
+				xloadfontset(font);
+			fcsets[0] = font->set;
+
 			/*
 			 * Nothing was found in the cache. Now use
 			 * some dozen of Fontconfig calls to get the
@@ -3443,25 +3491,23 @@ run(void) {
 		FD_SET(cmdfd, &rfd);
 		FD_SET(xfd, &rfd);
 
-		switch(select(MAX(xfd, cmdfd)+1, &rfd, NULL, NULL, tv) < 0) {
-		case -1:
+		if(select(MAX(xfd, cmdfd)+1, &rfd, NULL, NULL, tv) < 0) {
 			if(errno == EINTR)
 				continue;
 			die("select failed: %s\n", SERRNO);
-		default:
-			if(FD_ISSET(cmdfd, &rfd)) {
-				ttyread();
-				if(blinktimeout) {
-					blinkset = tattrset(ATTR_BLINK);
-					if(!blinkset && term.mode & ATTR_BLINK)
-						term.mode &= ~(MODE_BLINK);
-				}
-			}
-
-			if(FD_ISSET(xfd, &rfd))
-				xev = actionfps;
-			break;
 		}
+		if(FD_ISSET(cmdfd, &rfd)) {
+			ttyread();
+			if(blinktimeout) {
+				blinkset = tattrset(ATTR_BLINK);
+				if(!blinkset && term.mode & ATTR_BLINK)
+					term.mode &= ~(MODE_BLINK);
+			}
+		}
+
+		if(FD_ISSET(xfd, &rfd))
+			xev = actionfps;
+
 		gettimeofday(&now, NULL);
 		drawtimeout.tv_sec = 0;
 		drawtimeout.tv_usec = (1000/xfps) * 1000;
