@@ -45,7 +45,7 @@ get-changelog:
 	[ -d $(UPSTREAM_DIR) ] || git clone $(UPSTREAM_VCS) $(UPSTREAM_DIR)
 
 	pwd=$$(pwd); \
-	cd $(UPSTREAM_DIR) git log | head -n 100 > "$$pwd/$(CHANGELOG)"
+	cd $(UPSTREAM_DIR) && git log | head -n 100 > "$$pwd/$(CHANGELOG)"
 
 man:
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
