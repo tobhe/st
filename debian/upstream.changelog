@@ -1,0 +1,100 @@
+commit 8f47c4a4dea7272d72833d2ae26eacc3896d8f5c
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 11 21:59:55 2013 +0200
+
+    Lazy font unloading too.
+
+commit 62502a88e94dd908fdd4418899afdd09a4de3bea
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 11 08:54:26 2013 +0200
+
+    Lazy fontset loading.
+    
+    Thanks Johannes Hofmann <Johannes.Hofmann@gmx.de>!
+
+commit 678eff6e1882a888deda5e4e429df42c39b604fe
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Mon May 6 19:50:14 2013 +0200
+
+    Removing an old select() regression.
+
+commit 8e968739c3cfc4e9f7088a9ea360bc4f37e9ad9f
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 4 19:04:20 2013 +0200
+
+    Allow more complex delimiters for word selections.
+    
+    Thanks Alexander Rezinsky <alexrez@gmail.com>!
+
+commit 0c2b513d01697aea20bb4a2a144b55e72c625e86
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 4 19:00:32 2013 +0200
+
+    Expand the last line with '\n' in case of overselection.
+    
+    Thanks Alexander Rezinsky <alexrez@gmail.com>!
+
+commit 634c247fa76a5f649cdcc51109970e46ddaf5c32
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 4 08:05:11 2013 +0200
+
+    Select to the end of row if end of line is reached.
+    
+    Thanks Alexander Rezinsky <alexrez@gmail.com>!
+
+commit 5938fa9d32379815757a83076069584f29a8d276
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat May 4 08:01:17 2013 +0200
+
+    Better comments for the snapping code.
+
+commit 8618386de947a1e2d0b449d6f60fde478e931ecb
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Wed May 1 13:14:46 2013 +0200
+
+    More stable blinking.
+
+commit e1458ef467f1164fa3ca51e64e3c768c8c69b346
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun Apr 28 21:32:42 2013 +0200
+
+    Explaining blinking for the dummies.
+
+commit 911ba5674bc4eb53a2ed548856a50032c39ca7f2
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun Apr 28 18:14:15 2013 +0200
+
+    Selection snapping is now considering wrapping.
+    
+    Thanks Alexander Rezinsky <alexrez@gmail.com> for mentioning this!
+
+commit a53017c8b47f511cf0462ac910cf9223a31ceb2f
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun Apr 28 17:42:30 2013 +0200
+
+    Add a possibility to modify the string sent by mouse buttons.
+    
+    Thanks Alexander Rezinsky <alexrez@gmail.com> for the suggestion!
+
+commit a77b01176a34de741485024e5e36002cff3c1124
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Fri Apr 26 18:55:40 2013 +0200
+
+    Be more efficient in blinking.
+
+commit 1e09726518b84091e80dfaf96632c122f6f446a6
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Fri Apr 26 18:41:54 2013 +0200
+
+    Enable blinking in st.
+
+commit 1b2751f5c24ca06afbb68e41e73fc9fce6c6b521
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Thu Apr 25 06:28:11 2013 +0200
+
+    Fixing the selection handling to allow one char selection.
+    
+    Thanks Alexander Sedov <alex0player@gmail.com> for suggesting the fix!
+
+commit 0851f2be2ab48ee3a67ef2287c09bd67622dcd8e
+Author: Christoph Lohmann <20h@r-36.net>
