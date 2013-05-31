@@ -1,3 +1,19 @@
+commit b5144100a59956b5bf69614a077bd4d252d7dc6c
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun May 26 16:10:22 2013 +0200
+
+    Fixing the selection in a single line again.
+    
+    Thanks p37sitdu@lavabit.com!
+
+commit 8f1bef05025c0052603f7ca30552a43395b4c13f
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun May 26 13:07:26 2013 +0200
+
+    Fixing the selection scrolling and the selection naming.
+    
+    Thanks p37sitdu@lavabit.com!
+
 commit 8f47c4a4dea7272d72833d2ae26eacc3896d8f5c
 Author: Christoph Lohmann <20h@r-36.net>
 Date:   Sat May 11 21:59:55 2013 +0200
@@ -82,19 +98,3 @@ Date:   Fri Apr 26 18:55:40 2013 +0200
 
     Be more efficient in blinking.
 
-commit 1e09726518b84091e80dfaf96632c122f6f446a6
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Fri Apr 26 18:41:54 2013 +0200
-
-    Enable blinking in st.
-
-commit 1b2751f5c24ca06afbb68e41e73fc9fce6c6b521
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Thu Apr 25 06:28:11 2013 +0200
-
-    Fixing the selection handling to allow one char selection.
-    
-    Thanks Alexander Sedov <alex0player@gmail.com> for suggesting the fix!
-
-commit 0851f2be2ab48ee3a67ef2287c09bd67622dcd8e
-Author: Christoph Lohmann <20h@r-36.net>
