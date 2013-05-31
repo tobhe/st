@@ -7,7 +7,7 @@ Subject: Change st to more descriptive name stterm
 
 --- a/st.c
 +++ b/st.c
-@@ -2641,7 +2641,7 @@
+@@ -2686,7 +2686,7 @@
  	}
  
  	if(!pattern)
@@ -16,7 +16,7 @@ Subject: Change st to more descriptive name stterm
  
  	if(fontsize > 0) {
  		FcPatternDel(pattern, FC_PIXEL_SIZE);
-@@ -2665,7 +2665,7 @@
+@@ -2710,7 +2710,7 @@
  	FcDefaultSubstitute(pattern);
  
  	if(xloadfont(&dc.font, pattern))
@@ -25,7 +25,7 @@ Subject: Change st to more descriptive name stterm
  
  	/* Setting character width and height. */
  	xw.cw = dc.font.width;
-@@ -2674,17 +2674,17 @@
+@@ -2719,17 +2719,17 @@
  	FcPatternDel(pattern, FC_SLANT);
  	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
  	if(xloadfont(&dc.ifont, pattern))
@@ -46,7 +46,7 @@ Subject: Change st to more descriptive name stterm
  
  	FcPatternDestroy(pattern);
  }
-@@ -3133,7 +3133,7 @@
+@@ -3190,7 +3190,7 @@
  
  void
  xresettitle(void) {

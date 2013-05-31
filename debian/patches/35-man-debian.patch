@@ -1,3 +1,6 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Sync name with Debian package stterm
+
 ---
  st.1 |   17 +++++++++++------
  1 file changed, 11 insertions(+), 6 deletions(-)
