@@ -17,7 +17,7 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  # unsupported xterm caps are (getting) commented. 
  # as soon as they work, uncomment them.
 -st| simpleterm,
-+stterm| simpleterm,
++stterm| Suckless Tools simple terminal,
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
@@ -27,7 +27,7 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  
 -st-256color| simpleterm with 256 colors,
 -	use=st,
-+stterm-256color| simpleterm with 256 colors,
++stterm-256color| Suckless Tools simple terminal with 256 colors,
 +	use=stterm,
  	colors#256,
  	pairs#32767,

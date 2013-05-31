@@ -2,15 +2,16 @@ stterm (0.4.1+20130526+gitb514410-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control
-    - (DEscription): Add reference to suckless tools and mention
+    - (Description): Add reference to suckless tools and mention
       original binary name "st".
   * debian/patches
     - Sync with release.
+    - (20): Update *.info file terminal descriptions.
     - (35): Update manual page for name stterm.
   * debian/upstream.changelog
     - Sync with release.
 
- -- Jari Aalto <jari.aalto@cante.net>  Fri, 31 May 2013 11:34:00 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Fri, 31 May 2013 12:44:29 +0300
 
 stterm (0.4.1+20130511+git8f47c4a-1) unstable; urgency=low
 
