@@ -1,0 +1,43 @@
+---
+ st.1 |   17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+--- a/st.1
++++ b/st.1
+@@ -1,8 +1,8 @@
+-.TH ST 1 st\-VERSION
++.TH STTERM 1 stterm\-VERSION
+ .SH NAME
+-st \- simple terminal
++stterm \- suckless tools terminal aka simple terminal
+ .SH SYNOPSIS
+-.B st
++.B stterm
+ .RB [ \-a ]
+ .RB [ \-c
+ .IR class ]
+@@ -20,8 +20,13 @@
+ .RB [ \-e
+ .IR command ...]
+ .SH DESCRIPTION
+-.B st
+-is a simple terminal emulator.
++.B stterm
++is a simple terminal emulator. The original project released the binary under name "st". If you would like to access the program by a short name, add an alias or function to the shell startup file:
++.TP
++.in 4
++.DS I 2
++alias st=stterm  # E.g. in ~/.bashrc for bash; consult your $SHELL
++.DE
+ .SH OPTIONS
+ .TP
+ .B \-a
+@@ -64,7 +69,7 @@
+ .B must be the last option
+ on the command line, as in xterm / rxvt.
+ .SH CUSTOMIZATION
+-.B st
++.B stterm
+ can be customized by creating a custom config.h and (re)compiling the source
+ code. This keeps it fast, secure and simple.
+ .SH AUTHORS
