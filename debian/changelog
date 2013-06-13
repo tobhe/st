@@ -1,3 +1,11 @@
+stterm (0.4.1+20130526+gitb514410-2) unstable; urgency=low
+
+  * NOT RELEASED
+  * debian/copyright
+    - Sync emails and license text
+
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 13 Jun 2013 10:41:53 +0300
+
 stterm (0.4.1+20130526+gitb514410-1) unstable; urgency=low
 
   * New upstream release.
