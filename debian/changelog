@@ -1,10 +1,12 @@
-stterm (0.4.1+20130526+gitb514410-2) unstable; urgency=low
+stterm (0.4.1+20130609+git5d3318c-1) unstable; urgency=low
 
   * NOT RELEASED
   * debian/copyright
     - Sync emails and license text
+  * debian/upstream.changelog
+    - Sync with release.
 
- -- Jari Aalto <jari.aalto@cante.net>  Thu, 13 Jun 2013 10:41:53 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 13 Jun 2013 10:45:24 +0300
 
 stterm (0.4.1+20130526+gitb514410-1) unstable; urgency=low
 

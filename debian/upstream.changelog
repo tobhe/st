@@ -1,3 +1,53 @@
+commit 5d3318c0c734a1d65e78ed4ce103b4517be8ec3b
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sun Jun 9 15:52:35 2013 +0200
+
+    Fixing title setting with the title argument.
+
+commit 369734c80c6e5049d704a00f436c59ecf4dafae8
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Thu Jun 6 19:09:18 2013 +0200
+
+    Adding xterm behaviour to setting the title.
+    
+    Thanks Airwave!
+
+commit 2cf4f366d615a4e5ed199f90e6cdb7741606a38e
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 14:39:13 2013 +0200
+
+    Bumping up the xfps so mouse motion won't reap the CPU.
+
+commit 7530694987596642b0b83db1c4a61f2794c20397
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 14:37:30 2013 +0200
+
+    Adding true mouse motion support.
+
+commit d743b93fdaee4900052a94b37c24073008888002
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 13:17:20 2013 +0200
+
+    This is a shorter bit handling in MODE_MOUSE.
+
+commit 317b7859210c187f898ddbc8ec0cc50885f340bc
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 13:13:01 2013 +0200
+
+    Add some comments about the other mouse reporting modes.
+
+commit 405fd89ac1d333be79325417c973a07ccad67453
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 13:06:53 2013 +0200
+
+    Implementing mouse focus and all events.
+
+commit 8315dc417982936186837edfac24420d0d0e516e
+Author: Christoph Lohmann <20h@r-36.net>
+Date:   Sat Jun 1 12:23:55 2013 +0200
+
+    Fixing bad highlighting on first SNAP_WORD multiline select.
+
 commit b5144100a59956b5bf69614a077bd4d252d7dc6c
 Author: Christoph Lohmann <20h@r-36.net>
 Date:   Sun May 26 16:10:22 2013 +0200
@@ -48,53 +98,3 @@ Date:   Sat May 4 19:00:32 2013 +0200
 
     Expand the last line with '\n' in case of overselection.
     
-    Thanks Alexander Rezinsky <alexrez@gmail.com>!
-
-commit 634c247fa76a5f649cdcc51109970e46ddaf5c32
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Sat May 4 08:05:11 2013 +0200
-
-    Select to the end of row if end of line is reached.
-    
-    Thanks Alexander Rezinsky <alexrez@gmail.com>!
-
-commit 5938fa9d32379815757a83076069584f29a8d276
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Sat May 4 08:01:17 2013 +0200
-
-    Better comments for the snapping code.
-
-commit 8618386de947a1e2d0b449d6f60fde478e931ecb
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Wed May 1 13:14:46 2013 +0200
-
-    More stable blinking.
-
-commit e1458ef467f1164fa3ca51e64e3c768c8c69b346
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Sun Apr 28 21:32:42 2013 +0200
-
-    Explaining blinking for the dummies.
-
-commit 911ba5674bc4eb53a2ed548856a50032c39ca7f2
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Sun Apr 28 18:14:15 2013 +0200
-
-    Selection snapping is now considering wrapping.
-    
-    Thanks Alexander Rezinsky <alexrez@gmail.com> for mentioning this!
-
-commit a53017c8b47f511cf0462ac910cf9223a31ceb2f
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Sun Apr 28 17:42:30 2013 +0200
-
-    Add a possibility to modify the string sent by mouse buttons.
-    
-    Thanks Alexander Rezinsky <alexrez@gmail.com> for the suggestion!
-
-commit a77b01176a34de741485024e5e36002cff3c1124
-Author: Christoph Lohmann <20h@r-36.net>
-Date:   Fri Apr 26 18:55:40 2013 +0200
-
-    Be more efficient in blinking.
-

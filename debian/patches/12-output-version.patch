@@ -8,7 +8,7 @@ Subject: Add Copyright word and use name stterm
 
 --- a/st.c
 +++ b/st.c
-@@ -3570,8 +3570,8 @@
+@@ -3614,8 +3614,8 @@
  
  void
  usage(void) {
