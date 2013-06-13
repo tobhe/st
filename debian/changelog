@@ -1,11 +1,12 @@
 stterm (0.4.1+20130609+git5d3318c-1) unstable; urgency=low
 
+  * New upstream release.
   * debian/copyright
     - Sync emails and license text
   * debian/upstream.changelog
     - Sync with release.
 
- -- Jari Aalto <jari.aalto@cante.net>  Thu, 13 Jun 2013 10:46:15 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 13 Jun 2013 10:48:23 +0300
 
 stterm (0.4.1+20130526+gitb514410-1) unstable; urgency=low
 
