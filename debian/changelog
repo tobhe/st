@@ -2,13 +2,15 @@ stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control
-    (Provides): add x-terminal-emulator.
+    - (Provides): add x-terminal-emulator.
   * debian/upstream.changelog
     - Sync with release.
   * debian/patches
     - Sync with release (quilt refresh).
+  * debian/rules
+    - (get-changelog): Clean EOL whitespaces.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 13 Aug 2013 22:47:05 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 13 Aug 2013 22:50:53 +0300
 
 stterm (0.4.1+20130609+git5d3318c-1) unstable; urgency=low
 
