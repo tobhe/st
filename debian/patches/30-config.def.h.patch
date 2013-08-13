@@ -7,7 +7,7 @@ Subject: Rename from st to stterm
 
 --- a/config.def.h
 +++ b/config.def.h
-@@ -34,7 +34,7 @@
+@@ -38,7 +38,7 @@
  static unsigned int blinktimeout = 800;
  
  /* TERM value */
