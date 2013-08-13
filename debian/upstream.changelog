@@ -3,11 +3,11 @@ Author: Roberto E. Vargas Caballero <k0ga@shike2.com>
 Date:   Mon Aug 12 15:25:18 2013 +0200
 
     Add terminfo definitions for terminals with meta key
-    
+
     Some programs don't check the value of km and use smm and rmm
     capabilites, and they cause the terminal change to meta enabled
     mode even in cases where is not desirable.
-    
+
     Allmost all people is using the terminal waiting that meta sends
     escape, so rmm and smm are not needed. If someone needs meta
     sets 8 bit he can use the correct terminfo definition in TERM.
@@ -17,7 +17,7 @@ Author: Eon S. Jeon <esjeon@lavabit.com>
 Date:   Mon Aug 5 16:37:59 2013 -0400
 
     Fix signess of tdefcolor
-    
+
     tdefcolor() returns -1 on error, while its return type is
     unsigned long. At the same time, line 1724 and 1731 are checking the
     positivity of its unsigned return value.
@@ -33,7 +33,7 @@ Author: Michael Forney <mforney@mforney.org>
 Date:   Thu Jul 25 16:24:16 2013 -0700
 
     Fix blink mode check
-    
+
     ATTR_BLINK is an attribute for a Glyph and will not be set in term.mode.
 
 commit 7e3cff33ffbd69a112fa4071a9f0ed2dc93bfc57
@@ -41,7 +41,7 @@ Author: Eric Pruitt <eric.pruitt@gmail.com>
 Date:   Mon Aug 5 11:33:37 2013 +0200
 
     Use character size scaling factors
-    
+
     The bounding boxes for characters can be scaled using "cwscale" and "chscale"
     to scale the width and height respectively.
 
@@ -50,11 +50,11 @@ Author: Roberto E. Vargas Caballero <k0ga@shike2.com>
 Date:   Sat Jul 20 21:52:40 2013 +0200
 
     Reload colors in reset
-    
+
     Colors definition can be changed using a OSC sequence, so
     we have to reload them if we want be sure all the colors
     are the correct.
-    
+
     Could be desirable free the colors allocated due to rgb
     colors and inverse colors (XftColorAllocValues in xdraws),
     but it is impossible due we use the same structure for all
@@ -65,7 +65,7 @@ Author: Roberto E. Vargas Caballero <k0ga@shike2.com>
 Date:   Fri Jul 19 20:34:36 2013 +0200
 
     Add RGB color definition
-    
+
     This patch uses the bit 24 in the color descriptor as an indicator
     of RGB color, so we can take the values and generating the XftColour
     directly in xdraws.
@@ -75,11 +75,11 @@ Author: Eon S. Jeon <esjeon@lavabit.com>
 Date:   Fri Jul 19 01:07:02 2013 -0400
 
     Improved font caching
-    
+
     I made a patch that improves the performance of font caching mechanism.
     This is based on a funny behaviour of FontConfig: it was handling
     FcCharSet in a somewhat unexpected way.
-    
+
     So, we are currently adding "a character" to a new FcCharSet, and then
     add it to a FcPattern. However, if we toss the FcPattern to FontConfig,
     it loads the entire language(charset) that contains the character we
@@ -87,7 +87,7 @@ Date:   Fri Jul 19 01:07:02 2013 -0400
     character. Instead, we can reused cached fonts, and this significantly
     reduces the number of calls to extremely slow FontConfig matching
     functions.
-    
+
     One more thing. I found that, in libXft, there's a function called
     XftCharExists. XftCharIndex internally calls this function, and
     does more stuffs if the character does exist. Since the returned index
