@@ -8,8 +8,8 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
- st.info |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ st.info |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 --- a/st.info
 +++ b/st.info
@@ -19,7 +19,7 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
-@@ -185,8 +185,8 @@
+@@ -185,15 +185,15 @@
  	vpa=\E[%i%p1%dd,
  
  
@@ -30,3 +30,20 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  	colors#256,
  	pairs#32767,
  #	Nicked from xterm-256color
+ 	setab=\E[%?%p1%{8}%<%t4%p1%d%e%p1%{16}%<%t10%p1%{8}%-%d%e48;5;%p1%d%;m,
+ 	setaf=\E[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m,
+ 
+-st-meta| simpleterm with meta key,
++stterm-meta| Suckless Tools simple terminal with meta key,
+ 	use=st,
+ 	km,
+ 	rmm=\E[?1034l,
+@@ -201,7 +201,7 @@
+ 	rs2=\E[4l\E>\E[?1034h,
+ 	is2=\E[4l\E>\E[?1034h,
+ 
+-st-meta-256color| simpleterm with meta key and 256 colors,
++stterm-meta-256color| Suckless Tools simple terminal with meta key and 256 colors,
+ 	use=st-256color,
+ 	km,
+ 	rmm=\E[?1034l,
