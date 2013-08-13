@@ -9,6 +9,10 @@ static char font[] = "Liberation Mono:pixelsize=12:antialias=false:autohint=fals
 static int borderpx = 2;
 static char shell[] = "/bin/sh";
 
+/* Kerning / character bounding-box mutlipliers */
+float cwscale = 1.0;
+float chscale = 1.0;
+
 /*
  * word delimiter string
  *
@@ -160,7 +164,7 @@ static Key key[] = {
 	{ XK_KP_Right,      XK_ANY_MOD,     "\033[C",        0,   -1,    0},
 	{ XK_KP_Right,      XK_ANY_MOD,     "\033OC",        0,   +1,    0},
 	{ XK_KP_Prior,      ShiftMask,      "\033[5;2~",     0,    0,    0},
-	{ XK_KP_Prior,      XK_ANY_MOD,     "\033[5~",	     0,    0,    0},
+	{ XK_KP_Prior,      XK_ANY_MOD,     "\033[5~",       0,    0,    0},
 	{ XK_KP_Begin,      XK_ANY_MOD,     "\033[E",        0,    0,    0},
 	{ XK_KP_End,        ControlMask,    "\033[J",       -1,    0,    0},
 	{ XK_KP_End,        ControlMask,    "\033[1;5F",    +1,    0,    0},
@@ -213,7 +217,7 @@ static Key key[] = {
 	{ XK_Left,          ShiftMask,      "\033[1;2D",     0,    0,    0},
 	{ XK_Left,          ControlMask,    "\033[1;5D",     0,    0,    0},
 	{ XK_Left,          Mod1Mask,       "\033[1;3D",     0,    0,    0},
-	{ XK_Left,	    XK_ANY_MOD,     "\033[D",        0,   -1,    0},
+	{ XK_Left,          XK_ANY_MOD,     "\033[D",        0,   -1,    0},
 	{ XK_Left,          XK_ANY_MOD,     "\033OD",        0,   +1,    0},
 	{ XK_Right,         ShiftMask,      "\033[1;2C",     0,    0,    0},
 	{ XK_Right,         ControlMask,    "\033[1;5C",     0,    0,    0},
@@ -247,7 +251,7 @@ static Key key[] = {
 	{ XK_End,           XK_ANY_MOD,     "\033[4~",       0,    0,    0},
 	{ XK_Prior,         ControlMask,    "\033[5;5~",     0,    0,    0},
 	{ XK_Prior,         ShiftMask,      "\033[5;2~",     0,    0,    0},
-	{ XK_Prior,         XK_NO_MOD,      "\033[5~",       0,    0,    0},
+	{ XK_Prior,         XK_ANY_MOD,     "\033[5~",       0,    0,    0},
 	{ XK_Next,          ControlMask,    "\033[6;5~",     0,    0,    0},
 	{ XK_Next,          ShiftMask,      "\033[6;2~",     0,    0,    0},
 	{ XK_Next,          XK_ANY_MOD,     "\033[6~",       0,    0,    0},
