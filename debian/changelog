@@ -8,13 +8,13 @@ stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
   * debian/patches
     - Sync with release (quilt refresh).
   * debian/repack.sh
-    - Delete; no longer needed.
+    - Minor updates.
   * debian/rules
     - (get-changelog): Clean EOL whitespaces.
   * debian/*.mk
     - Minor updates.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 13 Aug 2013 22:53:14 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 13 Aug 2013 22:54:53 +0300
 
 stterm (0.4.1+20130609+git5d3318c-1) unstable; urgency=low
 
