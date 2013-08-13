@@ -13,15 +13,13 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 
 --- a/st.info
 +++ b/st.info
-@@ -1,6 +1,6 @@
- # unsupported xterm caps are (getting) commented. 
- # as soon as they work, uncomment them.
+@@ -1,4 +1,4 @@
 -st| simpleterm,
 +stterm| Suckless Tools simple terminal,
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
-@@ -189,8 +189,8 @@
+@@ -185,8 +185,8 @@
  	vpa=\E[%i%p1%dd,
  
  
