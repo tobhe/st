@@ -1,0 +1,30 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Change option -t to -T
+ x-terminal emulator must provide option -T.
+ See 11.8.3 Packages providing a terminal emulator
+ http://www.debian.org/doc/debian-policy/ch-customized-programs.html#s11.8.3
+
+---
+ st.1 |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/st.1
++++ b/st.1
+@@ -12,7 +12,7 @@
+ .IR geometry ]
+ .RB [ \-o
+ .IR file ]
+-.RB [ \-t 
++.RB [ \-T
+ .IR title ]
+ .RB [ \-w 
+ .IR windowid ]
+@@ -52,7 +52,7 @@
+ This feature is useful when recording st sessions. A value of "-" means
+ standard output.
+ .TP
+-.BI \-t " title"
++.BI \-T " title"
+ defines the window title (default 'st').
+ .TP
+ .BI \-w " windowid"

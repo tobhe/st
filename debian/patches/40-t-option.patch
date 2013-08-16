@@ -1,0 +1,30 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Change option -t to -T
+ x-terminal emulator must provide option -T.
+ See 11.8.3 Packages providing a terminal emulator
+ http://www.debian.org/doc/debian-policy/ch-customized-programs.html#s11.8.3
+
+---
+ st.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/st.c
++++ b/st.c
+@@ -3670,7 +3670,7 @@
+ usage(void) {
+ 	die("%s " VERSION " (C) 2010-2013 stterm engineers\n" \
+ 	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]" \
+-	" [-t title] [-w windowid] [-e command ...]\n", argv0);
++	" [-T title] [-w windowid] [-e command ...]\n", argv0);
+ }
+ 
+ int
+@@ -3723,7 +3723,7 @@
+ 	case 'o':
+ 		opt_io = EARGF(usage());
+ 		break;
+-	case 't':
++	case 'T':
+ 		opt_title = EARGF(usage());
+ 		break;
+ 	case 'w':

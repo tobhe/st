@@ -3,3 +3,5 @@
 20-st.info.patch
 30-config.def.h.patch
 35-man-debian.patch
+36-man-t-option.patch
+40-t-option.patch
