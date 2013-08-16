@@ -1,13 +1,3 @@
-stterm (0.4.1+20130812+git4579693-2) unstable; urgency=low
-
-  * debian/patches
-    - (36, 40): New. Change command line option form -t to -T
-      according to policy: 11.8.3 Packages providing a terminal emulator.
-  * debian/{postinst,prerm}
-    - New. Install x-terminal-emulator alternatives.
-
- -- Jari Aalto <jari.aalto@cante.net>  Fri, 16 Aug 2013 08:56:18 +0300
-
 stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
 
   * New upstream release.
@@ -17,6 +7,10 @@ stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
     - Sync with release.
   * debian/patches
     - Sync with release (quilt refresh).
+    - (36, 40): New. Change command line option form -t to -T
+      according to policy: 11.8.3 Packages providing a terminal emulator.
+  * debian/{postinst,prerm}
+    - New. Install x-terminal-emulator alternatives.
   * debian/repack.sh
     - Minor updates.
   * debian/rules
@@ -24,7 +18,7 @@ stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
   * debian/*.mk
     - Minor updates.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 13 Aug 2013 22:54:53 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Fri, 16 Aug 2013 09:04:29 +0300
 
 stterm (0.4.1+20130609+git5d3318c-1) unstable; urgency=low
 
