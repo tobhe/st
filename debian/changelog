@@ -1,3 +1,16 @@
+stterm (0.4.1+20130921+giteeae9b0-1) unstable; urgency=low
+
+  * New upstream release.
+  * pod2man.mk, debian-vars.mk, stterm.1.pod, stterm.manpages
+    - Delete; no longer needed (Closes: #724096).
+  * debian/patch
+    - Refresh patches.
+  * debian/rules
+    - (man): delete.
+    - (override_dh_auto_install): install manual page.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 25 Sep 2013 08:27:18 +0300
+
 stterm (0.4.1+20130812+git4579693-1) unstable; urgency=low
 
   * New upstream release.
