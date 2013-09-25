@@ -10,7 +10,7 @@ Subject: Change option -t to -T
 
 --- a/st.c
 +++ b/st.c
-@@ -3670,7 +3670,7 @@
+@@ -3725,7 +3725,7 @@
  usage(void) {
  	die("%s " VERSION " (C) 2010-2013 stterm engineers\n" \
  	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]" \
@@ -19,7 +19,7 @@ Subject: Change option -t to -T
  }
  
  int
-@@ -3723,7 +3723,7 @@
+@@ -3778,7 +3778,7 @@
  	case 'o':
  		opt_io = EARGF(usage());
  		break;

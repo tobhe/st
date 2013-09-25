@@ -5,8 +5,8 @@ Subject: Change option -t to -T
  http://www.debian.org/doc/debian-policy/ch-customized-programs.html#s11.8.3
 
 ---
- st.1 |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ st.1 |   16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 --- a/st.1
 +++ b/st.1
@@ -19,12 +19,43 @@ Subject: Change option -t to -T
  .IR title ]
  .RB [ \-w 
  .IR windowid ]
-@@ -52,7 +52,7 @@
- This feature is useful when recording st sessions. A value of "-" means
+@@ -38,10 +38,10 @@
+ .BI \-f " font"
+ defines the
+ .I font
+-to use when st is run.
++to use.
+ .TP
+ .BI \-g " geometry"
+-defines the X11 geometry string, which will fixate the height and width of st. 
++defines the X11 geometry string, which will fixate the height and width.
+ The form is [=][<width>{xX}<height>][{+-}<xoffset>{+-}<yoffset>]. See
+ .BR XParseGeometry (3)
+ for further details.
+@@ -49,21 +49,21 @@
+ .BI \-o " file"
+ writes all the I/O to
+ .I file.
+-This feature is useful when recording st sessions. A value of "-" means
++This feature is useful when recording sessions. A value of "-" means
  standard output.
  .TP
 -.BI \-t " title"
+-defines the window title (default 'st').
 +.BI \-T " title"
- defines the window title (default 'st').
++defines the window title (default 'stterm').
  .TP
  .BI \-w " windowid"
+-embeds st within the window identified by 
++embeds stterm within the window identified by
+ .I windowid
+ .TP
+ .B \-v
+ prints version information to stderr, then exits.
+ .TP
+ .BI \-e " program " [ " arguments " "... ]"
+-st executes
++executes
+ .I program
+ instead of the shell.  If this is used it
+ .B must be the last option
