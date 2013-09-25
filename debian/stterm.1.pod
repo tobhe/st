@@ -1,6 +1,6 @@
 #   Copyright
 #
-#      Copyright (C) 2009 Jari Aalto
+#      Copyright (C) 2010-2013 Jari Aalto
 #
 #   License
 #
@@ -37,6 +37,8 @@
 #	    pod2man PAGE.N.pod > PAGE.N
 
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
