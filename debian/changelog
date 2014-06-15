@@ -3,13 +3,13 @@ stterm (0.5+20140606+gitc2fd275-1) unstable; urgency=low
   * New upstream release.
     - Thanks to Markus <waldeck@gmx.de> for the heads up.
     - Fix warning about missing fontset (Closes: #606149).
-    - Option "-g" not works correctly.
+    - Option "-g" now works correctly.
   * debian/control
     - (Standards-Version): Update to 3.9.5.
   * debian/copyright
     - Update years.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sun, 15 Jun 2014 18:51:26 +0300
+ -- Jari Aalto <jari.aalto@cante.net>  Sun, 15 Jun 2014 18:55:14 +0300
 
 stterm (0.4.1+20130921+giteeae9b0-1) unstable; urgency=low
 
