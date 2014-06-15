@@ -5,13 +5,13 @@ Subject: Change option -t to -T
  http://www.debian.org/doc/debian-policy/ch-customized-programs.html#s11.8.3
 
 ---
- st.1 |   16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ st.1 |   14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 --- a/st.1
 +++ b/st.1
-@@ -12,7 +12,7 @@
- .IR geometry ]
+@@ -13,7 +13,7 @@
+ .RB [ \-i ]
  .RB [ \-o
  .IR file ]
 -.RB [ \-t 
@@ -19,7 +19,7 @@ Subject: Change option -t to -T
  .IR title ]
  .RB [ \-w 
  .IR windowid ]
-@@ -38,10 +38,10 @@
+@@ -39,7 +39,7 @@
  .BI \-f " font"
  defines the
  .I font
@@ -27,12 +27,8 @@ Subject: Change option -t to -T
 +to use.
  .TP
  .BI \-g " geometry"
--defines the X11 geometry string, which will fixate the height and width of st. 
-+defines the X11 geometry string, which will fixate the height and width.
- The form is [=][<width>{xX}<height>][{+-}<xoffset>{+-}<yoffset>]. See
- .BR XParseGeometry (3)
- for further details.
-@@ -49,21 +49,21 @@
+ defines the X11 geometry string.
+@@ -53,21 +53,21 @@
  .BI \-o " file"
  writes all the I/O to
  .I file.

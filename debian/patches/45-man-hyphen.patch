@@ -1,0 +1,18 @@
+From: Jari Aalto <jari.aalto@cante.net>
+Subject: Fix hyphen in manual page
+
+---
+ st.1 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/st.1
++++ b/st.1
+@@ -48,7 +48,7 @@
+ for further details.
+ .TP
+ .B \-f
+-will fixate the position given with the -g option.
++will fixate the position given with the \-g option.
+ .TP
+ .BI \-o " file"
+ writes all the I/O to

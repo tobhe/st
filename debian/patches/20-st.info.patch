@@ -19,7 +19,7 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
-@@ -185,24 +185,24 @@
+@@ -188,24 +188,24 @@
  	vpa=\E[%i%p1%dd,
  
  

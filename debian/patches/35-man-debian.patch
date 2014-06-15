@@ -19,7 +19,7 @@ Subject: Sync name with Debian package stterm
  .RB [ \-a ]
  .RB [ \-c
  .IR class ]
-@@ -20,8 +20,13 @@
+@@ -21,8 +21,13 @@
  .RB [ \-e
  .IR command ...]
  .SH DESCRIPTION
@@ -35,7 +35,7 @@ Subject: Sync name with Debian package stterm
  .SH OPTIONS
  .TP
  .B \-a
-@@ -64,7 +69,7 @@
+@@ -68,7 +73,7 @@
  .B must be the last option
  on the command line, as in xterm / rxvt.
  .SH CUSTOMIZATION
