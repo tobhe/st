@@ -7,7 +7,7 @@ Subject: Rename from st to stterm
 
 --- a/config.def.h
 +++ b/config.def.h
-@@ -44,7 +44,7 @@
+@@ -54,7 +54,7 @@ static unsigned int cursorthickness = 2;
  static int bellvolume = 0;
  
  /* TERM value */

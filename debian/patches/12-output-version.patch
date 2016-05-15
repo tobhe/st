@@ -8,14 +8,20 @@ Subject: Add Copyright word and use name stterm
 
 --- a/st.c
 +++ b/st.c
-@@ -3805,8 +3805,8 @@
+@@ -4009,11 +4009,11 @@ run(void) {
  
  void
  usage(void) {
--	die("%s " VERSION " (c) 2010-2014 st engineers\n" \
--	"usage: st [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]" \
-+	die("%s " VERSION " (C) 2010-2014 st engineers\n" \
-+	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]" \
- 	" [-t title] [-w windowid] [-e command ...]\n", argv0);
+-	die("%s " VERSION " (c) 2010-2015 st engineers\n"
+-	"usage: st [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
+-	"          [-i] [-t title] [-w windowid] [-e command ...] [command ...]\n"
+-	"       st [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
+-	"          [-i] [-t title] [-w windowid] [-l line] [stty_args ...]\n",
++	die("%s " VERSION " (C) 2010-2015 st engineers\n"
++	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
++	"              [-i] [-t title] [-w windowid] [-e command ...] [command ...]\n"
++	"       stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
++	"              [-i] [-t title] [-w windowid] [-l line] [stty_args ...]\n",
+ 	argv0);
  }
  

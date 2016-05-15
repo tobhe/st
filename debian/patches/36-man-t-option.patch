@@ -10,16 +10,16 @@ Subject: Change option -t to -T
 
 --- a/st.1
 +++ b/st.1
-@@ -13,7 +13,7 @@
+@@ -13,7 +13,7 @@ stterm \- suckless tools terminal aka si
  .RB [ \-i ]
  .RB [ \-o
  .IR file ]
 -.RB [ \-t 
 +.RB [ \-T
  .IR title ]
- .RB [ \-w 
- .IR windowid ]
-@@ -39,7 +39,7 @@
+ .RB [ \-l
+ .IR line ]
+@@ -64,7 +64,7 @@ defines the window class (default $TERM)
  .BI \-f " font"
  defines the
  .I font
@@ -28,25 +28,25 @@ Subject: Change option -t to -T
  .TP
  .BI \-g " geometry"
  defines the X11 geometry string.
-@@ -53,21 +53,21 @@
- .BI \-o " file"
+@@ -78,14 +78,14 @@ will fixate the position given with the
+ .BI \-o " iofile"
  writes all the I/O to
- .I file.
+ .I iofile.
 -This feature is useful when recording st sessions. A value of "-" means
 +This feature is useful when recording sessions. A value of "-" means
  standard output.
  .TP
 -.BI \-t " title"
--defines the window title (default 'st').
 +.BI \-T " title"
-+defines the window title (default 'stterm').
+ defines the window title (default 'st').
  .TP
  .BI \-w " windowid"
 -embeds st within the window identified by 
-+embeds stterm within the window identified by
++embeds stterm within the window identified by 
  .I windowid
  .TP
- .B \-v
+ .BI \-l " line"
+@@ -97,7 +97,7 @@ remaining arguments are used as flags fo
  prints version information to stderr, then exits.
  .TP
  .BI \-e " program " [ " arguments " "... ]"

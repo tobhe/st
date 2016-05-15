@@ -7,16 +7,16 @@ Subject: Change st to more descriptive name stterm
 
 --- a/st.c
 +++ b/st.c
-@@ -2900,7 +2900,7 @@
+@@ -3071,7 +3071,7 @@ xloadfonts(char *fontstr, double fontsiz
  	}
  
  	if(!pattern)
 -		die("st: can't open font %s\n", fontstr);
 +		die("stterm: can't open font %s\n", fontstr);
  
- 	if(fontsize > 0) {
+ 	if(fontsize > 1) {
  		FcPatternDel(pattern, FC_PIXEL_SIZE);
-@@ -2928,7 +2928,7 @@
+@@ -3100,7 +3100,7 @@ xloadfonts(char *fontstr, double fontsiz
  	FcDefaultSubstitute(pattern);
  
  	if(xloadfont(&dc.font, pattern))
@@ -25,7 +25,7 @@ Subject: Change st to more descriptive name stterm
  
  	if(usedfontsize < 0) {
  		FcPatternGetDouble(dc.font.match->pattern,
-@@ -2943,17 +2943,17 @@
+@@ -3117,17 +3117,17 @@ xloadfonts(char *fontstr, double fontsiz
  	FcPatternDel(pattern, FC_SLANT);
  	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
  	if(xloadfont(&dc.ifont, pattern))
@@ -46,7 +46,7 @@ Subject: Change st to more descriptive name stterm
  
  	FcPatternDestroy(pattern);
  }
-@@ -3425,7 +3425,7 @@
+@@ -3642,7 +3642,7 @@ xsettitle(char *p) {
  
  void
  xresettitle(void) {

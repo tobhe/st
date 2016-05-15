@@ -19,9 +19,9 @@ Subject: Sync name with Debian package stterm
  .RB [ \-a ]
  .RB [ \-c
  .IR class ]
-@@ -21,8 +21,13 @@
- .RB [ \-e
- .IR command ...]
+@@ -46,8 +46,13 @@ st \- simple terminal
+ .IR line ]
+ .RI [ stty_args ...]
  .SH DESCRIPTION
 -.B st
 -is a simple terminal emulator.
@@ -35,9 +35,9 @@ Subject: Sync name with Debian package stterm
  .SH OPTIONS
  .TP
  .B \-a
-@@ -68,7 +73,7 @@
- .B must be the last option
- on the command line, as in xterm / rxvt.
+@@ -135,7 +140,7 @@ Copy the selected text to the clipboard
+ .B Alt-Shift-v
+ Paste from the clipboard selection.
  .SH CUSTOMIZATION
 -.B st
 +.B stterm

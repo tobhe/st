@@ -10,18 +10,21 @@ Subject: Change option -t to -T
 
 --- a/st.c
 +++ b/st.c
-@@ -3807,7 +3807,7 @@
+@@ -4011,9 +4011,9 @@ void
  usage(void) {
- 	die("%s " VERSION " (C) 2010-2014 st engineers\n" \
- 	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]" \
--	" [-t title] [-w windowid] [-e command ...]\n", argv0);
-+	" [-T title] [-w windowid] [-e command ...]\n", argv0);
+ 	die("%s " VERSION " (C) 2010-2015 st engineers\n"
+ 	"usage: stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
+-	"              [-i] [-t title] [-w windowid] [-e command ...] [command ...]\n"
++	"              [-i] [-T title] [-w windowid] [-e command ...] [command ...]\n"
+ 	"       stterm [-a] [-v] [-c class] [-f font] [-g geometry] [-o file]\n"
+-	"              [-i] [-t title] [-w windowid] [-l line] [stty_args ...]\n",
++	"              [-i] [-T title] [-w windowid] [-l line] [stty_args ...]\n",
+ 	argv0);
  }
  
- int
-@@ -3848,7 +3848,7 @@
- 	case 'o':
- 		opt_io = EARGF(usage());
+@@ -4052,7 +4052,7 @@ main(int argc, char *argv[]) {
+ 	case 'l':
+ 		opt_line = EARGF(usage());
  		break;
 -	case 't':
 +	case 'T':
