@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9), libx11-dev, libfreetype6-dev,
  libxext-dev, pkg-config, libxft-dev
 Standards-Version: 3.9.8
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/stterm.git
-Vcs-Git: https://anonscm.debian.org/collab-maint/stterm.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/stterm.git
 Homepage: http://st.suckless.org
 
 Package: stterm
