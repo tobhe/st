@@ -3,8 +3,8 @@ Date: Tue, 20 Sep 2011 12:43:55 +0300
 Subject: Add Copyright word and use name stterm
 
 ---
- st.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ st.c |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 --- a/st.c
 +++ b/st.c

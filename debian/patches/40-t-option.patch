@@ -5,8 +5,8 @@ Subject: Change option -t to -T
  http://www.debian.org/doc/debian-policy/ch-customized-programs.html#s11.8.3
 
 ---
- st.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ st.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 --- a/st.c
 +++ b/st.c

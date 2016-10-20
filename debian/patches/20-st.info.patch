@@ -19,7 +19,7 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  	acsc=``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
-@@ -188,24 +188,24 @@
+@@ -188,24 +188,24 @@ st| simpleterm,
  	vpa=\E[%i%p1%dd,
  
  
