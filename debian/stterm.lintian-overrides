@@ -1,0 +1,2 @@
+# stterm is just a symlink provided for backwards compatibility.
+binary-without-manpage usr/bin/stterm

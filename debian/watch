@@ -1,2 +1,2 @@
-version=3
-http://git.suckless.org/st/refs /st/snapshot/st-(.*)\.tar\.gz
+version=4
+opts="mode=git, pgpmode=none" git://git.suckless.org/st refs/tags/([\d\.]+)

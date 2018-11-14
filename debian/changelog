@@ -1,3 +1,17 @@
+stterm (0.8.1-1) UNRELEASED; urgency=medium
+
+  * New upstream version (closes: #838372)
+  * New maintainer: Paride Legovini (closes: #909663)
+  * Standard-Version 4.2.1 (no changes needed)
+  * Compat level 11 (with B-D on debhelper-compat)
+  * Depend on libncurses-term (provides st's terminfo file)
+  * Drop dependency on libxext-dev
+  * Dropped all the patches. Now:
+    - TERM is st-256color (closes: #785219, #838439).
+    - The binary is installed as 'st', with a 'stterm' symlink.
+
+ -- Paride Legovini <pl@ninthfloor.org>  Tue, 13 Nov 2018 22:35:13 +0000
+
 stterm (0.6-1) unstable; urgency=medium
 
   * Team upload
