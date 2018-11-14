@@ -32,12 +32,12 @@ Comment:
  > On Tue, 25 Jul 2017 13:56:30 Paride Legovini <pl@ninthfloor.org> wrote:
  > > while working on software packaging I encountered your arg.h file, with
  > > just the following notice:
- > > 
+ > >
  > > /*
  > >  * Copy me if you can.
  > >  * by 20h
  > >  */
- > > 
+ > >
  > > and no proper copyright attribution. I tracked down the file to `sbase',
  > > but I'm still unsure about where your actual intentions about the
  > > license for this file. May I assume it's MIX/X Consortium licensed as
