@@ -1,4 +1,4 @@
-stterm (0.8.1-1) UNRELEASED; urgency=medium
+stterm (0.8.1-1) unstable; urgency=medium
 
   * New upstream version (closes: #838372)
   * New maintainer: Paride Legovini (closes: #909663)
