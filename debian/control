@@ -1,7 +1,7 @@
 Source: stterm
 Section: x11
 Priority: optional
-Maintainer: Paride Legovini <pl@ninthfloor.org>
+Maintainer: Paride Legovini <paride@debian.org>
 Build-Depends: debhelper-compat (= 13),
                libx11-dev,
                libxft-dev,
