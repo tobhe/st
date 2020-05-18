@@ -8,10 +8,6 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 %:
 	dh $@
 
-override_dh_auto_build:
-	# The Makefile supports CFLAGS, but not CPPFLAGS, let's append them.
-	CFLAGS="$$CFLAGS $$CPPFLAGS" dh_auto_build
-
 override_dh_auto_install:
 	# The upstream install target runs tic(1), and we don't want to. We could patch
 	# the command away, but it is simpler to install the couple of files we actually
