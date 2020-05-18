@@ -1,3 +1,18 @@
+stterm (0.8.3-1) unstable; urgency=medium
+
+  * New upstream version 0.8.3.
+  * Install the FAQ and LEGAGY files.
+  * d/control:
+    - bump the dh compat level to 13.
+    - bump Standards-Version to 4.5.0 (no changes needed).
+    - specify Rules-Requires-Root: no.
+    - use the paride@debian.org alias in Uploaders.
+  * d/rules:
+    - stop enforcing -Wl,--as-needed (now done by default).
+    - drop override_dh_auto_build (CPPFLAGS now supported upstream).
+
+ -- Paride Legovini <paride@debian.org>  Sun, 17 May 2020 17:18:33 +0000
+
 stterm (0.8.2-1) unstable; urgency=medium
 
   * New upstream version 0.8.1 (closes: 921961)
