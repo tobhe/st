@@ -2,10 +2,11 @@ Source: stterm
 Section: x11
 Priority: optional
 Maintainer: Paride Legovini <paride@debian.org>
-Build-Depends: debhelper-compat (= 13),
-               libx11-dev,
-               libxft-dev,
-               pkg-config
+Build-Depends:
+ debhelper-compat (= 13),
+ libx11-dev,
+ libxft-dev,
+ pkg-config,
 Standards-Version: 4.5.0
 Vcs-Browser: https://salsa.debian.org/debian/st
 Vcs-Git: https://salsa.debian.org/debian/st.git
@@ -14,8 +15,12 @@ Rules-Requires-Root: no
 
 Package: stterm
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ncurses-term (>= 6.1+20180714-1)
-Provides: x-terminal-emulator
+Depends:
+ ncurses-term (>= 6.1+20180714-1),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Provides:
+ x-terminal-emulator,
 Multi-Arch: foreign
 X-Comment:
  The versioned dependency for ncurses-term is on the first update after the
