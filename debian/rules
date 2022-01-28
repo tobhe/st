@@ -13,6 +13,5 @@ override_dh_auto_install:
 	# the command away, but it is simpler to install the couple of files we actually
 	# want using debhelper. Let's disable dh_auto_install.
 
-override_dh_installman:
-	dh_installman
+execute_after_dh_installman:
 	sed -i "s/VERSION/$(DEB_VERSION_UPSTREAM)/g" $(CURDIR)/debian/stterm/usr/share/man/man1/st.1
