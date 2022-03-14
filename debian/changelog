@@ -1,3 +1,15 @@
+stterm (0.8.5-1) unstable; urgency=medium
+
+  * New upstream version 0.8.5
+  * d/control: bump Standards-Version to 4.6.0, no changes needed
+  * d/rules: use execute_after targets where appropriate
+  * d/gbp.conf: debian-branch = debian/latest (DEP-14)
+  * d/copyright:
+    - update copyright data for debian/*
+    - clarify who got written permission for arg.h
+
+ -- Paride Legovini <paride@debian.org>  Mon, 14 Mar 2022 22:41:11 +0000
+
 stterm (0.8.4-1) unstable; urgency=medium
 
   * New upstream version 0.8.4.
