@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=st
+Icon=terminal
+Terminal=false
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;
+
+Name=st
+GenericName=Terminal
+Comment=Simple terminal emulator
