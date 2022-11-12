@@ -1,3 +1,16 @@
+stterm (0.9-1) unstable; urgency=medium
+
+  * New upstream version 0.9
+  * d/p/0001-fix-buffer-overflow-when-handling-long-composed-inpu.patch.
+    New patch (upstream cherry-pick).
+  * d/control: bump Standards-Version to 4.6.1, no changes needed
+  * d/st.desktop: add desktop entry (Closes: #1020790)
+  * d/stterm.alternatives: configure x-terminal-emulator alternative.
+    Also: drop d/stterm.postinst and prerm: the maintainer scripts
+    were only used to handle alternatives.
+
+ -- Paride Legovini <paride@debian.org>  Sat, 12 Nov 2022 00:11:02 +0000
+
 stterm (0.8.5-1) unstable; urgency=medium
 
   * New upstream version 0.8.5
