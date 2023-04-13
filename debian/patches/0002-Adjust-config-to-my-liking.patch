@@ -1,0 +1,50 @@
+From: Tobias Heider <me@tobhe.de>
+Date: Thu, 13 Apr 2023 16:44:36 +0200
+Subject: Adjust config to my liking
+
+---
+ config.def.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 91ab8ca..c57cae5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Terminus-12";
+ static int borderpx = 2;
+ 
+ /*
+@@ -16,7 +16,7 @@ static int borderpx = 2;
+  * 4: value of shell in /etc/passwd
+  * 5: value of shell in config.h
+  */
+-static char *shell = "/bin/sh";
++static char *shell = "/bin/bash";
+ char *utmp = NULL;
+ /* scroll program: to enable use a string like "scroll" */
+ char *scroll = NULL;
+@@ -26,7 +26,7 @@ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
+ char *vtiden = "\033[?6c";
+ 
+ /* Kerning / character bounding-box multipliers */
+-static float cwscale = 1.0;
++static float cwscale = 0.8;
+ static float chscale = 1.0;
+ 
+ /*
+@@ -120,8 +120,8 @@ static const char *colorname[] = {
+ 	/* more colors can be added after 255 to use with DefaultXX */
+ 	"#cccccc",
+ 	"#555555",
+-	"gray90", /* default foreground colour */
+-	"black", /* default background colour */
++	"black", /* default foreground colour */
++	"cornsilk", /* default background colour */
+ };
+ 
+ 
