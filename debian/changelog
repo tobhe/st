@@ -1,3 +1,10 @@
+st-tobhe (0.9-1tobhe1) lunar; urgency=medium
+
+  * Rename to st-tobhe
+  * Adjust config to my liking
+
+ -- Tobias Heider <me@tobhe.de>  Thu, 13 Apr 2023 16:46:47 +0200
+
 stterm (0.9-1) unstable; urgency=medium
 
   * New upstream version 0.9

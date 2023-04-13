@@ -14,4 +14,4 @@ override_dh_auto_install:
 	# want using debhelper. Let's disable dh_auto_install.
 
 execute_after_dh_installman:
-	sed -i "s/VERSION/$(DEB_VERSION_UPSTREAM)/g" $(CURDIR)/debian/stterm/usr/share/man/man1/st.1
+	sed -i "s/VERSION/$(DEB_VERSION_UPSTREAM)/g" $(CURDIR)/debian/st-tobhe/usr/share/man/man1/st.1

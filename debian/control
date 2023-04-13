@@ -1,4 +1,4 @@
-Source: stterm
+Source: st-tobhe
 Section: x11
 Priority: optional
 Maintainer: Paride Legovini <paride@debian.org>
@@ -13,7 +13,7 @@ Vcs-Git: https://salsa.debian.org/debian/st.git
 Homepage: https://st.suckless.org
 Rules-Requires-Root: no
 
-Package: stterm
+Package: st-tobhe
 Architecture: any
 Depends:
  ncurses-term (>= 6.1+20180714-1),
@@ -36,5 +36,3 @@ Description: simple terminal emulator for X
  characters, resize, 256 colors, true colors, antialiased fonts (using
  fontconfig), fallback fonts, and line drawing. It does *not* provide
  a scrollback buffer: users are encouraged to use a terminal multiplexter.
- .
- This Debian package is called 'stterm' for historical reasons.
