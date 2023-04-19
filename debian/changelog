@@ -1,3 +1,10 @@
+st-tobhe (0.9-1tobhe2) lunar; urgency=medium
+
+  * Adjust colors
+  * Make default width 88 chars to account for line numbers
+
+ -- Tobias Heider <me@tobhe.de>  Thu, 20 Apr 2023 01:41:09 +0200
+
 st-tobhe (0.9-1tobhe1) lunar; urgency=medium
 
   * Rename to st-tobhe
