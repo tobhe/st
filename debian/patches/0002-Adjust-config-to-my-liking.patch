@@ -1,13 +1,18 @@
 From: Tobias Heider <me@tobhe.de>
 Date: Thu, 13 Apr 2023 16:44:36 +0200
-Subject: Adjust config to my liking
+Subject: Adjust config
 
+- bash by default
+- use Terminus font, fix letter spacing
+- set term to xterm for compatibility
+- 88 columns to account for :set nu
+- custom colors
 ---
- config.def.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ config.def.h | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 91ab8ca..dfc3b3d 100644
+index 91ab8ca..3b91bb5 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -5,7 +5,7 @@
@@ -37,6 +42,15 @@ index 91ab8ca..dfc3b3d 100644
  static float chscale = 1.0;
  
  /*
+@@ -74,7 +74,7 @@ static unsigned int cursorthickness = 2;
+ static int bellvolume = 0;
+ 
+ /* default TERM value */
+-char *termname = "st-256color";
++char *termname = "xterm";
+ 
+ /*
+  * spaces per tab
 @@ -120,8 +120,8 @@ static const char *colorname[] = {
  	/* more colors can be added after 255 to use with DefaultXX */
  	"#cccccc",
