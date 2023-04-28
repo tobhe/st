@@ -1,3 +1,9 @@
+st-tobhe (0.9-1tobhe3) lunar; urgency=medium
+
+  * Set TERM=xterm for compatibility
+
+ -- Tobias Heider <me@tobhe.de>  Fri, 28 Apr 2023 22:50:26 +0200
+
 st-tobhe (0.9-1tobhe2) lunar; urgency=medium
 
   * Adjust colors
