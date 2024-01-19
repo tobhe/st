@@ -8,11 +8,11 @@ Subject: Adjust config
 - 88 columns to account for :set nu
 - custom colors
 ---
- config.def.h | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ config.def.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 91ab8ca..3b91bb5 100644
+index 91ab8ca..597601a 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -5,7 +5,7 @@
@@ -51,12 +51,15 @@ index 91ab8ca..3b91bb5 100644
  
  /*
   * spaces per tab
-@@ -120,8 +120,8 @@ static const char *colorname[] = {
+@@ -118,10 +118,10 @@ static const char *colorname[] = {
+ 	[255] = 0,
+ 
  	/* more colors can be added after 255 to use with DefaultXX */
- 	"#cccccc",
+-	"#cccccc",
  	"#555555",
 -	"gray90", /* default foreground colour */
 -	"black", /* default background colour */
++	"#cccccc",
 +	"#222222", /* default foreground colour */
 +	"#eae5ce", /* default background colour */
  };

@@ -1,3 +1,9 @@
+st-tobhe (0.9-1tobhe3) mantic; urgency=medium
+
+  * Invert cursor colors
+
+ -- Tobias Heider <me@tobhe.de>  Sat, 20 Jan 2024 00:51:09 +0100
+
 st-tobhe (0.9-1tobhe3) lunar; urgency=medium
 
   * Set TERM=xterm for compatibility
